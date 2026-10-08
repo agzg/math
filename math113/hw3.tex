@@ -1,0 +1,364 @@
+\documentclass[a4paper]{article}
+\input{head}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\begin{document}
+
+\hrule\medskip
+\begin{minipage}{0.295\textwidth}\raggedright\footnotesize
+Ali Azam
+\end{minipage}%
+\begin{minipage}{0.4\textwidth}\centering
+\large Math 113: Complex Analysis\\
+\normalsize HW \#3
+\end{minipage}%
+\begin{minipage}{0.295\textwidth}\raggedleft
+\today
+\end{minipage}
+\medskip\hrule\bigskip
+
+%%% Problem 1 %%%
+\section*{Ex 4.3.1}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Use the Fundamental Theorem for Path Integrals to show that
+\[
+  \int_{\partial\Delta(-1-i,\,1-i,\,i)} \frac{1}{z}\,dz = 2\pi i.
+\]
+(Hint: the principal branch of $\log(z)$ is an antiderivative for $1/z$ in $D^{*}=\mathbb{C}\setminus(-\infty,0]$.
+But we can also define a branch of $\log(z)$ in $\mathbb{C}\setminus[0,\infty)$ by
+$g(z)=\ln|z|+i\arg_0(z)$ where $\arg_0(z)\in(0,2\pi)$.)
+\end{tcolorbox}
+
+\textit{Pf.} Let $A=-1-i$, $B=1-i$, $C=i$ be the vertices. The boundary $\partial\Delta$ is over $[A,B]+[B,C]+[C,A]$.
+
+\medskip
+The principal branch $\operatorname{Log}(z)=\ln|z|+i\operatorname{Arg}(z)$ with $\operatorname{Arg}(z)\in(-\pi,\pi]$ is an antiderivative for $1/z$ on $D^{*}=\mathbb{C}\setminus(-\infty,0]$.
+
+The segment $[A,B]$ has $\operatorname{Im}(z)=-1$ throughout, so it avoids $(-\infty,0]$.
+The segment $[B,C]$ from $1-i$ to $i$ crosses the real axis only at $z=\tfrac{1}{2}>0$, so it also avoids $(-\infty,0]$.
+Hence both edges lie in $D^{*}$, and by the Fundamental Theorem for Path Integrals, we can write
+\[
+  \int_{[A,B]+[B,C]} \frac{dz}{z}
+  = \operatorname{Log}(C)-\operatorname{Log}(A).
+\]
+Then we can evaluate,
+\begin{align*}
+  \operatorname{Log}(i) & =\ln 1+i\frac{\pi}{2}=\frac{\pi i}{2}\\
+  \operatorname{Log}(-1-i) &=\ln\sqrt{2}+i\!\left(-\frac{3\pi}{4}\right) =\tfrac{1}{2}\ln 2-\tfrac{3\pi i}{4}
+\end{align*}
+Therefore,
+\[
+  \operatorname{Log}(C)-\operatorname{Log}(A)
+  = \frac{\pi i}{2}-\frac{1}{2}\ln 2+\frac{3\pi i}{4}
+  = -\frac{1}{2}\ln 2+\frac{5\pi i}{4}
+\]
+
+\medskip
+The branch $g(z)=\ln|z|+i\arg_0(z)$ with $\arg_0\in(0,2\pi)$ is an antiderivative for $1/z$ on $\mathbb{C}\setminus[0,\infty)$.
+The segment $[C,A]$ from $i$ to $-1-i$ crosses the real axis only at $z=-\tfrac{1}{2}<0$, so it avoids $[0,\infty)$.
+By the Fundamental Theorem of Path Integrals again, we write
+\[
+  \int_{[C,A]} \frac{dz}{z} = g(A)-g(C).
+\]
+Since they are in the third quadrant, we have $\arg_0(i)=\pi/2$ and $\arg_0(-1-i)=5\pi/4$. Then,
+\begin{align*}
+  g(i) &= \frac{\pi i}{2}\\
+  g(-1-i) &= \tfrac{1}{2}\ln 2+\tfrac{5\pi i}{4}.
+\end{align*}
+Therefore,
+\[
+  g(A)-g(C) = \frac{1}{2}\ln 2+\frac{5\pi i}{4}-\frac{\pi i}{2}
+  = \frac{1}{2}\ln 2+\frac{3\pi i}{4}.
+\]
+
+\medskip
+Summing these we get,
+\[
+  \int_{\partial\Delta}\frac{dz}{z}
+  = \left(-\frac{1}{2}\ln 2+\frac{5\pi i}{4}\right)
+    +\left(\frac{1}{2}\ln 2+\frac{3\pi i}{4}\right)
+  = \frac{8\pi i}{4}
+\]
+which simplifies to $2\pi i$. \qed
+%%% Problem 2 %%%
+\newpage
+\section*{Ex 4.2.1}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f$ is holomorphic in a domain $D$ containing $\overline{D_r(z_0)}$
+for some $r>0$. Show that
+\[
+  f(z_0) = \frac{1}{2\pi}\int_0^{2\pi} f(z_0+re^{i\theta})\,d\theta.
+\]
+Thus, $f(z_0)$ is the average of the values of $f$ on the circle $|z-z_0|=r$.
+\end{tcolorbox}
+
+\textit{Pf.} We have that $D$ is open and contains the compact set, $\overline{D_r(z_0)}$. Then there exists an $R>r$ such that $D_R(z_0)\subset D$.
+The disk $D_R(z_0)$ is a convex domain with $f\in H(D_R(z_0))$.
+
+\medskip
+Let $\gamma(t)=z_0+re^{it}$ for $t\in[0,2\pi]$.
+From Lemma~4.4, we have $\operatorname{Ind}_\gamma(z_0)=1$ (since $|z-z_0| < r)$. We also have $\gamma^{*}\subset D_R(z_0)$.
+From Theorem~4.10 (Cauchy Integral) on the convex domain $D_R(z_0)$, we get
+\begin{align*}
+  f(z_0)
+  &= \operatorname{Ind}_\gamma(z_0) f(z_0)\\
+  &= \frac{1}{2\pi i}\int_\gamma \frac{f(w)}{w-z_0}\,dw.
+\end{align*}
+
+We can parametrize, $w=z_0+re^{i\theta}$, $dw=ire^{i\theta}\,d\theta$, $w-z_0=re^{i\theta}$.  Then substitute to integrate,
+\begin{align*}
+  f(z_0)
+  &= \frac{1}{2\pi i}\int_0^{2\pi}
+    \frac{f(z_0+re^{i\theta})}{re^{i\theta}} ire^{i\theta}\,d\theta\\
+  &= \frac{1}{2\pi}\int_0^{2\pi} f(z_0+re^{i\theta})\,d\theta
+\end{align*}
+which shows $f(z_0)$ is the average of $f$ over the circle $|z-z_0|=r$. \qed
+
+%%% Problem 3 %%%
+\newpage
+\section*{Ex 4.3.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $D$ be a domain and $p\in D$.  Suppose that $f$ is continuous on $D$ and
+that $f\in H(D\setminus\{p\})$.  Show that $f\in H(D)$.
+\end{tcolorbox}
+
+\textit{Pf.} Since $D$ is open and $p\in D$, $\exists r>0$ s.t. $D_r(p)\subset D$.
+
+\medskip
+The disk $D_r(p)$ is a convex domain.
+On $D_r(p)$ we have: $f$ is continuous and $f\in H(D_r(p)\setminus\{p\})$.
+These are exactly the conditions in Theorem~4.8 (Cauchy for Convex Domains) with exceptional point $p$.
+
+\medskip
+By Theorem~4.8, $f$ has an antiderivative $F$ in $D_r(p)$. Then, $F\in H(D_r(p))$ and $F'=f$ on $D_r(p)$.
+
+By Corollary~4.13, $f=F'\in H(D_r(p))$.
+In particular, $f$ is holomorphic at $p$.
+Since $f$ was already holomorphic on $D\setminus\{p\}$, we have shown that $f\in H(D)$. \qed
+
+%%% Problem 4 %%%
+\newpage
+\section*{Ex 4.3.4}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f(z)=u(z)+iv(z)$ with $u$ and $v$ real-valued.  If $D$ is open
+and $f\in H(D)$, show that $u$ and $v$ are smooth on $D$ in the sense that they
+have continuous partial derivatives of all orders.  In particular, conclude that
+$u$ and $v$ are harmonic on $D$.  (Compare with Ex~2.2.8.)
+\end{tcolorbox}
+
+\textit{Pf.} Since $f\in H(D)$, Theorem~4.12 (Holomorphic Functions are Analytic) gives $f$ is analytic on $D$.
+By Corollary~4.13, $f$ has holomorphic (hence continuous) derivatives of all orders: $f^{(k)}\in H(D)$ for every $k\ge 0$.
+
+\medskip
+
+By equation~(2.9) of Theorem~2.14, wherever $f'(z)$ exists we have
+\[
+  f'(z) = f_x(z) = u_x(z)+iv_x(z).
+\]
+Since $f'\in H(D)$, $f'$ is continuous, so $u_x = \operatorname{Re}(f')$ and $v_x = \operatorname{Im}(f')$ are continuous on $D$.
+
+\medskip
+
+The Cauchy--Riemann equations $u_y=-v_x$ and $v_y=u_x$ then give that $u_y$ and $v_y$ are also continuous.
+Thus all first-order partial derivatives of $u$ and $v$ are continuous on $D$.
+Thus $u,v\in C^1(D)$.
+
+We can prove by induction that for $f^{(k-1)}$ for each $k$, we obtain $u,v\in C^k(D)$ $\forall k$. The same reasoning applies to $f'$ (which is itself holomorphic), then $f''$ is continuous, so $(u_x)_x$ and $(v_x)_x$ are continuous. By Cauchy--Riemann again for $f'$, all second-order partial derivatives of $u$ and $v$ are continuous, giving $u,v\in C^2(D)$, and so on.
+
+Hence $u$ and $v$ are smooth ($C^\infty$) on $D$.
+
+\medskip
+Since $u,v\in C^2(D)$, we differentiate the Cauchy--Riemann equations:
+\begin{align*}
+  u_{xx} &= (v_y)_x = v_{yx} \\
+  u_{yy} &= (-v_x)_y = -v_{xy}.
+\end{align*}
+Since $v$ is $C^2$, by Clairut we have $v_{yx}=v_{xy}$.  Therefore,
+\[
+  u_{xx}+u_{yy} = v_{yx}-v_{xy} = 0
+\]
+and,
+\begin{align*}
+  v_{xx} &= (-u_y)_x = -u_{yx}\\
+  v_{yy} &= (u_x)_y = u_{xy},
+\end{align*}
+thus $v_{xx}+v_{yy} = -u_{yx}+u_{xy} = 0$.
+Hence shown that $u$ and $v$ are harmonic on $D$. \qed
+
+%%% Problem 5 %%%
+\newpage
+\section*{Ex 4.3.8}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let
+\[
+  f(z) = \frac{1}{e^z+1} = \sum_{n=0}^{\infty} a_n z^n
+\]
+be the MacLaurin series for $f$.
+\begin{enumerate}
+\item[(a)] Use Ex~4.3.7 to show that the $a_n$ satisfy $a_0=\tfrac{1}{2}$ and
+\[
+  a_n = -\frac{1}{2}\sum_{k=0}^{n-1}\frac{a_k}{(n-k)!}
+  \quad\text{if } n\ge 1.
+\]
+\item[(b)] Use part~(a) to calculate the first few terms of the series.
+\item[(c)] What is the radius of convergence of the series?
+\end{enumerate}
+\end{tcolorbox}
+
+\textit{Pf.} \begin{enumerate}
+\item[\textbf{(a)}]
+Since $f(z)(e^z+1)=1$, we expand both factors as power series and use the Cauchy product (from Ex~4.3.7).
+
+The MacLaurin series for $e^z+1$ is 
+\[
+\sum_{n=0}^{\infty}b_n z^n
+\]
+where $b_0=2$ and $b_n=1/n!$ for $n\ge 1$.
+
+From Ex~4.3.7 we have,
+\[
+f(z)(e^z+1)=\sum c_n z^n
+\]
+where $c_n=\sum_{k=0}^{n}a_k\,b_{n-k}$.
+Since the product equals the constant $1$, we have $c_0=1$ and $c_n=0$ for $n\ge 1$.
+
+From $c_0=a_0 b_0=2a_0=1$, we get $a_0=\tfrac{1}{2}$.
+
+For $n\ge 1$, we have,
+\begin{align*}
+  0 = c_n &= a_n b_0 + \sum_{k=0}^{n-1}a_k\,b_{n-k}\\
+  &= 2a_n + \sum_{k=0}^{n-1}\frac{a_k}{(n-k)!}.
+\end{align*}
+Then we have,
+$\displaystyle a_n = -\frac{1}{2}\sum_{k=0}^{n-1}\frac{a_k}{(n-k)!}$ for $n \ge 1$. \qed
+
+\medskip
+\item[\textbf{(b)}]
+Using the pattern from part~(a), we have,
+\begin{align*}
+  a_0 &= \tfrac{1}{2}\\
+  a_1 &= -\tfrac{1}{2}\cdot\frac{a_0}{1!}
+       = -\tfrac{1}{4}\\
+  a_2 &= -\tfrac{1}{2}\!\left(\frac{a_0}{2!}+\frac{a_1}{1!}\right)
+       = -\tfrac{1}{2}\!\left(\tfrac{1}{4}-\tfrac{1}{4}\right) = 0\\
+  a_3 &= -\tfrac{1}{2}\!\left(\frac{a_0}{3!}+\frac{a_1}{2!}+\frac{a_2}{1!}\right)
+       = -\tfrac{1}{2}\!\left(\tfrac{1}{12}-\tfrac{1}{8}+0\right)
+       = -\tfrac{1}{2}\!\left(-\tfrac{1}{24}\right) = \tfrac{1}{48}\\
+  a_4 &= -\tfrac{1}{2}\!\left(\frac{a_0}{4!}+\frac{a_1}{3!}+\frac{a_2}{2!}+\frac{a_3}{1!}\right)
+       = -\tfrac{1}{2}\!\left(\tfrac{1}{48}-\tfrac{1}{24}+0+\tfrac{1}{48}\right) = 0
+\end{align*}
+Thus
+$\displaystyle f(z) = \frac{1}{2}-\frac{1}{4}\,z+\frac{1}{48}\,z^3+\cdots$ (where even coeffs zero out).
+
+\medskip
+\item[\textbf{(c)}]
+The function $f(z)=1/(e^z+1)$ has singularity when $e^z=-1$, i.e. $z=(2k+1)\pi i$ $\forall k\in\mathbb{Z}$.
+
+The closest singularities to origin are $z=\pm\pi i$, both having distance of $\pi$.
+By Corollary~4.14 (Taylor's Theorem), the radius of convergence is at least $\pi$.
+Since $f$ is not holomorphic at $z=\pi i$, the power series cannot converge after distance $\pi$.
+Therefore the radius of convergence is exactly~$\pi$.
+\end{enumerate}
+%%% Problem 6 %%%
+\newpage
+\section*{EP-2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Complete the proof of Cauchy's Theorem for Convex Domains by showing that
+if $f$ is continuous at $z_0$, then
+\[
+  \lim_{z\to z_0}\frac{1}{z-z_0}\int_{[z_0,\,z]}\bigl(f(w)-f(z_0)\bigr)\,dw = 0.
+\]
+\end{tcolorbox}
+
+\textit{Pf.} From equation (4.3) in Theorem~4.8 (Cauchy for Convex Domains), given $F(z)=\int_{[a,z]}f(w)\,dw$ and Cauchy's Theorem for a Triangle, we have
+\[
+  \frac{F(z)-F(z_0)}{z-z_0}-f(z_0)
+  = \frac{1}{z-z_0}\int_{[z_0,\,z]}\bigl(f(w)-f(z_0)\bigr)\,dw.
+\]
+We can show that the RHS tends to $0$ as $z$ tends to $z_0$.
+
+\medskip
+Let $\varepsilon>0$. Since $f$ is continuous at $z_0$, $\exists\delta>0$ s.t.
+\[
+  |w-z_0|<\delta \implies |f(w)-f(z_0)|<\varepsilon
+\]
+$\forall w$ on segment $[z_0,z]$, we have $|w-z_0|\le|z-z_0|$.
+So when $|z-z_0|<\delta$, every $w\in[z_0,z]$ satisfies $|f(w)-f(z_0)|<\varepsilon$.
+By Proposition~3.26(a) to estimate the standard path-integral, we have,
+\begin{align*}
+  \left|\int_{[z_0,\,z]}\bigl(f(w)-f(z_0)\bigr)\,dw\right|
+  &\le \varepsilon\ell\bigl([z_0,z]\bigr)
+  = \varepsilon\,|z-z_0| \\
+  \left|\frac{1}{z-z_0}\int_{[z_0,\,z]}\bigl(f(w)-f(z_0)\bigr)\,dw\right|
+  &\le \varepsilon
+\end{align*}
+Since we have an arbitrary $\varepsilon>0$, limit tends to $0$. \qed
+
+%%% Problem 7 %%%
+\newpage
+\section*{Ex 5.1.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $D$ is a domain and that $f\in H(D)$ is nonconstant.  Suppose
+also that there is an analytic branch of $f(z)^{1/n}$ in $D$.  (That is, there is a
+$g\in H(D)$ such that $f(z)=g(z)^n$.)  Show that if $f$ has a zero of order $m$
+in $D$, then $m$ is divisible by~$n$.
+\end{tcolorbox}
+
+\textit{Pf.} Let $a\in D$ be a zero of $f$ of order $m$.
+Since $f(a)=g(a)^n=0$, we have $g(a)=0$.
+Also, since $f$ is nonconstant, $g$ is nonconstant (otherwise $f=g^n$ would be constant).
+
+\medskip
+By Theorem~5.6, $g$ has a zero of finite order at $a$. Let this order be some $k\ge 1$.
+
+Then $h\in H(D)$ with $h(a)\ne 0$, we have by Lemma~5.4 that 
+\[
+g(z)=(z-a)^k h(z)
+\]
+$\forall z \in D$. Let $f(z)$ be the be $g(z)$ raised to the $n$th power s.t.
+\[
+  f(z) = g(z)^n = (z-a)^{nk}\,h(z)^n
+\]
+Since we have $h(a)\ne 0$, the function $h(z)^n$ is holomorphic with $h(a)^n\ne 0$.
+By Corollary~2.7, we know that the order of a zero is unique, and thus we must have $m=nk$.
+Hence $m$ is divisible by $n$. \qed
+
+%%% Problem 8 %%%
+\newpage
+\section*{Ex 5.1.3}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f$ is entire and that
+\[
+  f\!\left(\frac{1}{n}\right) = f\!\left(-\frac{1}{n}\right)
+  \quad\text{for all } n\in\mathbb{N}.
+\]
+Show that $f(z)=f(-z)$ for all $z\in\mathbb{C}$.
+\end{tcolorbox}
+
+\textit{Pf.} Let $h(z)=f(z)-f(-z)$.
+Since $f$ is entire and the map $z$ to $-z$ is also trivially entire, we can show from Proposition~2.2 (composition of entire functions) that the composition $f(-z)$ is entire. Therefore, we have that $h$ is entire as the difference of two entire functions.
+
+\medskip
+By hypothesis, for every $n\in\mathbb{N}$,
+\[
+  h\!\left(\frac{1}{n}\right) = f\!\left(\frac{1}{n}\right)-f\!\left(-\frac{1}{n}\right) = 0
+\]
+So the zero set $Z(h)=\{z\in\mathbb{C}:h(z)=0\}$ contains the set $S=\{1/n:n\in\mathbb{N}\}=\{1,\tfrac{1}{2},\tfrac{1}{3},\ldots\}$.
+
+Since we have that $\displaystyle \frac{1}{n}$ tends to $0$ as $n$ tends to $\infty$, the set S has $0$ as limit point.
+Hence $Z(h)$ has a limit point in the domain $\mathbb{C}$.
+
+\medskip
+By Corollary~5.7, we have that $h = f(z) - f(-z)$ and zero function (both are holomorphic on $\mathbb{C}$) equal to each other in this set with limit point in domain $\mathbb{C}$, therefore they must equal each other everywhere, i.e. $h \equiv 0$.
+
+\medskip
+Then, $0 \equiv f(z) - f(-z)$, which implies $f(z) = f(-z) \;\; \forall z\in\mathbb{C}$. \qed
+\end{document}

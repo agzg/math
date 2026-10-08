@@ -1,0 +1,509 @@
+\documentclass[a4paper]{article}
+\input{head}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Log}{Log}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Rb}{\mathbb{R}}
+
+\newtcolorbox{prob}{colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm}
+
+\begin{document}
+
+\hrule\medskip
+\begin{minipage}{0.295\textwidth}\raggedright\footnotesize
+Ali Azam
+\end{minipage}%
+\begin{minipage}{0.4\textwidth}\centering
+\large Math 113: Complex Analysis\\
+\normalsize HW \#8
+\end{minipage}%
+\begin{minipage}{0.295\textwidth}\raggedleft
+\today
+\end{minipage}
+\medskip\hrule\bigskip
+
+\section*{Ex 9.1.1}
+
+\begin{prob}
+Prove Proposition 9.2. (Hint: Either use Proposition 9.3 or use the observation
+that the formula (9.4) holds for all circles $\gamma_\tau$ with $\tau$
+sufficiently small.)
+
+\medskip
+\emph{Proposition 9.2.} Suppose that $f$ has an isolated singularity at $a$ with
+associated Laurent series
+\[
+f(z)=\sum_{n=0}^{\infty}a_n(z-a)^n+\sum_{j=1}^{\infty}\frac{b_j}{(z-a)^j}.
+\]
+\begin{itemize}
+\item[(a)] $a$ is a removable singularity if and only if all the $b_j$ are zero.
+\item[(b)] $a$ is a pole of order $m\ge 1$ if and only if $b_m\ne 0$ and $b_j=0$
+for $j>m$.
+\item[(c)] $a$ is an essential singularity if and only if $b_j\ne 0$ for
+infinitely many $j$.
+\end{itemize}
+\end{prob}
+
+\textit{Pf.} We have that the Laurent series above is valid on a punctured disk, $0<|z-a|<r$. We use Thm~9.1's (Laurent's Theorem) uniqueness statement to say that the coefficients $a_n,b_j$ are determined by $f$.
+
+\medskip
+
+\begin{enumerate}
+    \item[\textbf{(a)}] ($\Leftarrow$) Let $\forall b_j = 0$, then $f(z) = \sum_{n\ge0}a_n(z-a)^n$ on the punctured disk. Using Thm 1.34, this power series defines a holomorphic function on the full disk $D_r(a)$, therefore setting $f(a) = a_0$ makes $f$ holomorphic at $a$. Therefore, by Def~5.12, the singularity is removable.
+
+    \medskip
+    ($\Rightarrow$) If $a$ is removable, let $g$ be the holomorphic extension of $f$ to $D_r(a)$. By Cor~4.14 (Taylor's Theorem), we have on $D_r(a)$,
+    \[
+    g(z) = \sum_{n\ge0}c_n(z-a)^n
+    \]  
+    which is the Laurent series for $f$ on $0<|z-a|<r$ whose negative coefficients all vanish. Therefore, using uniquness in Thm~9.1 we must have $\forall b_j = 0$ and $a_n = c_n$. \qed
+
+    \item[\textbf{(b)}] ($\Leftarrow$) Let $b_m \ne 0$ and $b_j = 0$ for $j > m$. Then, we have,
+    \[
+    f(z) - \sum_{j=1}^m \frac{b_j}{(z-a)^j} = \sum_{n\ge0}a_n(z-a)^n
+    \]
+    which is known to be removable by part (a). By Def~5.14, we have exactly that the $a$ is pole of order $m$.
+
+    \medskip
+    ($\Rightarrow$) Let $a$ be a pole of order $m$. By Def~5.14, we have $\exists c_1, \dots, c_m$ with $c_m \ne 0$ s.t.
+    \[
+    r(z) = f(z) - \sum_{j=1}^m c_j(z-a)^{-j}
+    \]
+    has a removable singularity at $a$. Using part (a), the Laurent series of $r$ has no principal part, therefore,
+    \[
+    f(z) = \sum_{n\ge0} a_n(z_a)^n + \sum_{j=1}^m \frac{c_j}{(z-a)^j}
+    \]
+    By Thm 9.1's uniqueness, $\forall j, 1 \le j \le m: b_j = c_j$ and $\forall j > m: b_j = 0$. I.e., we have $b_m = c_m \ne 0$. \qed
+
+    \item[\textbf{(c)}] ($\Rightarrow$) By Def~5.20, $a$ is essential when it is neither removable nor a pole. By part (a), if $a$ is removable then $\forall b_j = 0$, and by part (b) if $a$ is a pole then it has the largest index $m$ with $b_m \ne 0$ s.t. $\forall j > m: b_j =0$. In either case, only finitely many $b_j$ are nonzero.
+
+    \medskip
+    ($\Leftarrow$) Ff only finitely many $b_j$ aare nonzero, then either all vanish (removabel) or there is a largest $m$ with $b_m \ne 0$ (pole of order $m$). 
+
+    \medskip
+    Therefore, $a$ is essential iff infinitely many $b_j$ are nonzero. \qed
+\end{enumerate}
+
+\newpage
+\section*{Ex 9.2.2}
+
+\begin{prob}
+Suppose that $f$ has an isolated singularity at $a$. Show that if
+$\lim_{z\to a}(z-a)f(z)=L\ne 0$, then $f$ has a simple pole at $a$ with residue
+$L$. What happens if $L=0$?
+\end{prob}
+
+\textit{Pf.} On the punctured disk where $f$, we consider $\varphi(z)=(z-a)f(z)$. We can see that $\lim_{z\to a}\varphi(z)=L$ exists and is finite (since $\varphi$ is bounded near $a$). This fulfills Prop~5.13's boundless criterion (d), since the limit exists, which gives us (a) i.e. the singularity of $\varphi$ at $a$ is removable.
+
+\medskip
+We can then extend $\varphi$ holomorphically s.t. $\varphi(a)=L$, and can write its Taylor series as,
+\[
+\varphi(z)=\sum_{n\ge 0}c_n(z-a)^n
+\]
+Therefore, $c_0=\varphi(a)=L$. On the punctured disk, we have,
+\[
+f(z)=\frac{\varphi(z)}{z-a}=\frac{L}{z-a}+\sum_{n\ge 1}c_n(z-a)^{n-1}
+\]
+where the second term is a power series and holomorphic at $a$. Therefore, the Laurent series of $f$ at $a$ has $b_1=L\ne 0$ and $\forall j \ge 2: b_j=0$. 
+
+\medskip
+Using Prop~9.2 (b), proven above in Ex~9.1.1, we have $a$ is a pole of order $1$, i.e. a simple pole. By Def~9.6 we also have that the residue is $\Res(f;a)=b_1=L$. \qed
+
+\medskip
+\underline{In the case $L=0$}: using the same procedure gives $\varphi$ holomorphic at $a$ with $\varphi(a)=0$. Therefore, we have $\varphi(z)=\sum_{n\ge 1}c_n(z-a)^n$ and that,
+\[
+f(z)=\frac{\varphi(z)}{z-a}=\sum_{n\ge 1}c_n(z-a)^{n-1}=\sum_{m\ge 0}c_{m+1}(z-a)^m
+\]
+is a power series. Therefore $f$ has a removable singularity at $a$, i.e. $a$ is not a pole. So when $L=0$ the only possibility is that the
+singularity is removable.
+
+\newpage
+\section*{Ex 9.2.3}
+
+\begin{prob}
+Prove the Simple Pole Lemma on page 138.
+
+\medskip
+\textbf{Lemma 9.16 (Simple Pole Lemma).} Suppose that $g$ and $h$ are holomorphic
+at $a$, that $g(a)\ne 0$ and that $h$ has a simple zero at $a$. Then $f=g/h$ has
+a simple pole at $a$ and
+\[
+\Res(f;a)=\frac{g(a)}{h'(a)}.
+\]
+\end{prob}
+
+\textit{Pf.} Since $h$ has a simple zero (a zero of order $1$) at $a$, we have from Lemm~5.4 that the function $h_1$ is holomorphic at $a$ with $h_1(a)\ne 0$ and that,
+\[
+h(z)=(z-a)\,h_1(z).
+\]
+
+We can differentiate to get, 
+\[
+h'(z)=h_1(z)+(z-a)h_1'(z)
+\]
+Therefore, $h'(a)=h_1(a)\ne 0$. Since $h_1(a)\ne 0$ and $g(a)\ne 0$, we have a punctured disk on which $h_1$, and hence $h$, are nonzero. Therefore, $f=g/h$ is holomorphic there and has an isolated singularity
+at $a$. Then,
+\[
+\lim_{z\to a}(z-a)f(z)
+=\lim_{z\to a}\frac{(z-a)g(z)}{(z-a)h_1(z)}
+=\lim_{z\to a}\frac{g(z)}{h_1(z)}
+=\frac{g(a)}{h_1(a)}=\frac{g(a)}{h'(a)}\ne 0
+\]
+From Ex~9.2.2 above we have that $f$ has a simple pole at $a$ with residue equal to this limit, i.e. $\displaystyle \Res(f;a)=\frac{g(a)}{h'(a)}$. \qed
+
+\newpage
+\section*{Ex 9.2.5}
+
+\begin{prob}
+Suppose that $f$ has a pole of order $m$ at $z_0$ and that $k$ has a zero of
+order $n$ at $z_0$. Show that $\Res(f'/f;z_0)=-m$ and that $\Res(k'/k;z_0)=n$.
+(Compare with Ex 5.2.7.)
+\end{prob}
+
+\textit{Pf.} Since $k$ has a zero of order $n$ at $z_0$, using Lemm~5.4 gives a function $K$ holomorphic at $z_0$ with $K(z_0)\ne 0$ and $k(z)=(z-z_0)^nK(z)$. Then we can differentiate to get,
+\[
+k'(z) = n(z-z_0)^{n-1}K(z)+(z-z_0)^nK'(z)
+\]
+which gives,
+\[
+\frac{k'(z)}{k(z)} = \frac{n}{z-z_0}+\frac{K'(z)}{K(z)}
+\]
+Since $K(z_0)\ne 0$, the term $K'/K$ is holomorphic near $z_0$. Hence $k'/k$ has a simple pole at $z_0$ (as in Ex~5.2.7). We can use $\lim_{z\to z_0}(z-z_0)\,k'/k=n\ne 0$ with Ex~9.2.2 to obtain,
+\[
+\Res\!\left(\frac{k'}{k};z_0\right)=n.
+\]
+
+\medskip
+Since $f$ has a pole of order $m$ at $z_0$, Cor~5.18
+gives a function $F$ holomorphic at $z_0$ with $F(z_0)\ne 0$ and
+$f(z)=F(z)/(z-z_0)^m$. Therefore we have,
+\begin{align*}
+f'(z)&=\frac{F'(z)}{(z-z_0)^m}-\frac{mF(z)}{(z-z_0)^{m+1}} \\
+\frac{f'(z)}{f(z)}&=\frac{F'(z)}{F(z)}-\frac{m}{z-z_0}.
+\end{align*}
+Since $F(z_0)\ne 0$, $F'/F$ is holomorphic near $z_0$. Hence $f'/f$ has a simple pole at $z_0$, and its residue is the coefficient of $(z-z_0)^{-1}$, i.e.
+$\displaystyle \Res\!\left(\frac{f'}{f};z_0\right)=-m$. \qed
+
+\newpage
+\section*{Ex 9.3.5}
+
+\begin{prob}
+Show that
+\[
+I=\int_{0}^{2\pi}\cos(\theta)^{2n}\,d\theta=\frac{\pi(2n)!}{2^{2n-1}(n!)^2}.
+\]
+\end{prob}
+
+\textit{Pf.} Like in Section~9.3.1, parametrize $z=e^{i\theta}$, s.t. $\theta\mapsto z$ traverses the
+positively oriented unit circle $\gamma$, with $dz=iz\,d\theta$ (hence
+$d\theta=dz/(iz)$) and $\cos\theta=\tfrac12(z+z^{-1})$. Therefore we have,
+\[
+I=\oint_{\gamma}\left(\frac{z+z^{-1}}{2}\right)^{2n}\frac{dz}{iz}
+=\frac{1}{2^{2n}i}\oint_{\gamma}\frac{(z+z^{-1})^{2n}}{z}\,dz
+\]
+Using the binomial theorem, we have,
+\[
+(z+z^{-1})^{2n}=\sum_{k=0}^{2n}\binom{2n}{k}z^{2k-2n}
+\]
+therefore,
+\[
+\frac{(z+z^{-1})^{2n}}{z}=\sum_{k=0}^{2n}\binom{2n}{k}z^{2k-2n-1}
+\]
+We have that the only singularity of the integrand is at $0$, and its residue is the coefficient of $z^{-1}$, given by $2k-2n-1=-1 \Rightarrow k=n$:
+\[
+\binom{2n}{n}=\frac{(2n)!}{(n!)^2}
+\]
+We have that $\gamma$ is a positively-oriented Jordan path and the integrand is holomorphic inside (besides at $0$), we have using Cor~9.13 (the Residue Theorem) that
+$\oint_{\gamma}=2\pi i\binom{2n}{n}$. Therefore,
+\[
+I=\frac{1}{2^{2n}i} 2\pi i\frac{(2n)!}{(n!)^2}
+=\frac{2\pi}{2^{2n}}\frac{(2n)!}{(n!)^2}
+=\frac{\pi(2n)!}{2^{2n-1}(n!)^2}
+\]
+as required. \qed
+
+\newpage
+\section*{Ex 10.1.1}
+
+\begin{prob}
+Suppose that $f$ is holomorphic on the punctured complex plane
+$D^0=\C\setminus\{0\}$. Suppose there is a sequence of polynomials $(p_n)$
+converging to $f$ uniformly on compact subsets of $D^0$. Show that $f$ has a
+removable singularity at $0$.
+\end{prob}
+
+\textit{Pf.} In $D^0=\C\setminus\{0\}$, deleted neighborhood of $0$, we have that $0$ is an isolated singularity of $f$. Using Thm~9.1 (Laurent's Theorem), for $0 < |z| < \infty$, $f$ has a Laurent series,
+\[
+f(z)=\sum_{n\ge 0}a_nz^n+\sum_{j\ge 1}\frac{b_j}{z^j}
+\]
+We can find its coefficients using equation~(9.4), $\forall \rho>0$ and $\forall j\ge 1$,
+\[
+b_j=\frac{1}{2\pi i}\oint_{\gamma_\rho}f(w)\,w^{j-1}\,dw
+\]
+where $\gamma_\rho$ is the positively-oriented circle $|w|=\rho$.
+
+\medskip
+We can consider $\rho>0$, s.t. the circle $\gamma_\rho^{*}$ is a compact subset of $D^0$. Therefore, $p_n\to f$ uniformly there. Since $w^{j-1}$ is bound on $\gamma_\rho^{*}$
+we have $p_n(w)w^{j-1}\to f(w)w^{j-1}$ uniformly on $\gamma_\rho^{*}$. 
+
+\medskip
+Using Prop~3.26(b) we can pass to the limit inside the integral s.t.
+\[
+b_j=\lim_{n\to\infty}\frac{1}{2\pi i}\oint_{\gamma_\rho}p_n(w)\,w^{j-1}\,dw
+\]
+We can consider $j\ge 1$, s.t. the integrand $p_n(w)w^{j-1}$ is a polynomial. Using Lemm~4.5 (polynomial has an antiderivative, and $\gamma_\rho$ is closed), its integral over $\gamma_\rho$ is $0$. Therefore, $\forall j \ge 1: b_j=0$. 
+
+\medskip
+Using Prop~9.2(a) (proved in Ex~9.1.1 above), the singularity of $f$ at $0$ is removable. \qed
+
+\newpage
+\section*{Ex 9.3.10}
+
+\begin{prob}
+Evaluate
+\[
+\int_{0}^{2\pi}\frac{\cos(\theta)}{3+\cos(\theta)}\,d\theta.
+\]
+\end{prob}
+
+\textit{Pf.} We can rewrite the integral as $\dfrac{\cos\theta}{3+\cos\theta}=1-\dfrac{3}{3+\cos\theta}$, s.t.
+\begin{align*}
+J: &=\int_{0}^{2\pi}\frac{d\theta}{3+\cos\theta} \\
+\\
+I &=\int_{0}^{2\pi}\frac{\cos\theta}{3+\cos\theta}\,d\theta
+=\int_{0}^{2\pi}d\theta-3\int_{0}^{2\pi}\frac{d\theta}{3+\cos\theta}
+=2\pi-3J
+\end{align*}
+For $J$ we parametrize $z=e^{i\theta}$, s.t. $d\theta=dz/(iz)$, $\cos\theta=\tfrac12(z+z^{-1})$
+and $3+\cos\theta=\dfrac{z^2+6z+1}{2z}$. Then we can consider it over the positively oriented unit circle $\gamma$ so that we have,
+\[
+J=\oint_{\gamma}\frac{2z}{z^2+6z+1}\frac{dz}{iz}
+=\frac{2}{i}\oint_{\gamma}\frac{dz}{z^2+6z+1}
+\]
+We have that the denominator has roots $z_{\pm}=-3\pm 2\sqrt2$. Since $z_+z_-=1$ and
+$|z_-|=3+2\sqrt2>1$, only $z_+=-3+2\sqrt2$ lies inside $\gamma$, and it is a
+simple pole. Using Ex~9.2.3 (done above) and Lemm~9.16, with denominator $z^2+6z+1$ of derivative $2z+6$, we have,
+\[
+\Res\!\left(\frac{1}{z^2+6z+1};z_+\right)=\frac{1}{2z_++6}
+=\frac{1}{2(-3+2\sqrt2)+6}=\frac{1}{4\sqrt2}
+\]
+Using Cor~9.13 (the Residue Theorem), we have,
+\[
+J=\frac{2}{i} 2\pi i\frac{1}{4\sqrt2}=\frac{\pi}{\sqrt2}
+\]
+Therefore, we have the integral evaluation as,
+\[
+I=2\pi-3\cdot\frac{\pi}{\sqrt2}=2\pi-\frac{3\sqrt2}{2}\pi
+=\frac{(4-3\sqrt2)\pi}{2}
+\]
+
+\newpage
+\section*{Ex 9.3.11}
+
+\begin{prob}
+Evaluate
+\[
+\int_{0}^{\infty}\frac{\cos(ax)}{(x^2+b^2)^2}\,dx
+\qquad\text{where }a>0\text{ and }b>0.
+\]
+\end{prob}
+
+\textit{Pf.} We have that the integrand is even, therefore $\int_0^\infty=\tfrac12\int_{-\infty}^{\infty}$. Let
+\begin{align*}
+f(z)&=\frac{1}{(z^2+b^2)^2}=\frac{1}{(z-ib)^2(z+ib)^2}
+\\ 
+g(z)&=f(z)e^{iaz}
+\end{align*}
+We have $f=p/q$ with $\deg p=0$ and $\deg q=4$, therefore $\deg p+2\le\deg q$, and $q$ has
+no real zeros. Since $a>0$, we can use Prop~9.21 to get,
+\[
+\int_{-\infty}^{\infty}\frac{e^{iax}}{(x^2+b^2)^2}\,dx
+=2\pi i\sum_{\operatorname{Im}z>0}\Res(g;z)=2\pi i\,\Res(g;ib)
+\]
+where the only pole in the upper half-plane is the double pole at $ib$. Using Lemm~9.17, we have,
+\[
+\Res(g;ib)=\lim_{z\to ib}\frac{d}{dz}\Big[(z-ib)^2g(z)\Big]
+=\frac{d}{dz}\left[\frac{e^{iaz}}{(z+ib)^2}\right]_{z=ib}
+\]
+We have,
+\[
+\frac{d}{dz}\Big[e^{iaz}(z+ib)^{-2}\Big]
+=e^{iaz}(z+ib)^{-3}\big[\,ia(z+ib)-2\,\big]
+\]
+At $z=ib$ we have $z+ib=2ib$, $e^{iaz}=e^{-ab}$, $ia(2ib)-2=-2(ab+1)$, and
+$(2ib)^{-3}=\dfrac{i}{8b^3}$. Therefore,
+\[
+\Res(g;ib)=e^{-ab}\cdot\frac{i}{8b^3}\cdot(-2)(ab+1)
+=-\,\frac{i(ab+1)e^{-ab}}{4b^3}
+\]
+and we get,
+\[
+\int_{-\infty}^{\infty}\frac{e^{iax}}{(x^2+b^2)^2}\,dx
+=2\pi i\cdot\left(-\frac{i(ab+1)e^{-ab}}{4b^3}\right)
+=\frac{\pi(1+ab)e^{-ab}}{2b^3}.
+\]
+Using Rmk~9.23, we take the real parts and replace $e^{iax}$ by $\cos(ax)$. The value above is already real, therefore,
+\[
+\int_{-\infty}^{\infty}\frac{\cos(ax)}{(x^2+b^2)^2}\,dx
+=\frac{\pi(1+ab)e^{-ab}}{2b^3}
+\]
+We can halve this to obtain the integral evaluation as,
+\[
+\int_{0}^{\infty}\frac{\cos(ax)}{(x^2+b^2)^2}\,dx
+=\frac{\pi(1+ab)e^{-ab}}{4b^3}
+\]
+
+\newpage
+\section*{Ex 9.3.12}
+
+\begin{prob}
+Evaluate $\displaystyle\int_{0}^{\infty}\frac{1}{x^n+1}\,dx$ where $n\ge 2$.
+(Note that we cannot use the old reliable contour $\Gamma_R$ from Proposition
+9.21 since the integrand has a singularity at $x=-1$ when $n$ is odd. Instead, I
+suggest you use the contour which is the positively oriented boundary of the
+circular sector $S=\{re^{i\theta}:0\le\theta\le\tfrac{2\pi}{n}\text{ and }
+0\le r\le\alpha\}$.)
+\end{prob}
+
+\textit{Pf.} Let $f(z)=\dfrac{1}{z^n+1}$ and let $\Gamma$ be the positively oriented boundary
+of the sector $S$ consisting of the segment $[0,\alpha]$ on the positive real axis, the arc
+$C_\alpha$ given by $z=\alpha e^{i\theta}$ for $0\le\theta\le 2\pi/n$, and the
+segment back to the origin along the ray $\arg z=2\pi/n$.
+
+\medskip
+We have that the zeros of $z^n+1$ are $z=e^{i\pi(2k+1)/n}$. The only zero with argument in
+$(0,2\pi/n)$ is $z_0=e^{i\pi/n}$ (the next zero, $e^{i3\pi/n}$, has argument $3\pi/n>2\pi/n$). Therefore $z_0$ is the unique pole inside the sector, and it is
+simple. Using Ex~9.2.3 (done above) and Lemm~9.16 (Simple Pole Lemma), with denominator
+$z^n+1$ of derivative $nz^{n-1}$, and using $z_0^n=-1$, we have,
+\[
+\Res(f;z_0)=\frac{1}{nz_0^{n-1}}=\frac{z_0}{nz_0^{n}}=\frac{z_0}{-n}
+=-\frac{e^{i\pi/n}}{n}
+\]
+Using Cor~9.13 (the Residue Theorem), we have,
+\[
+\oint_{\Gamma}f(z)\,dz=2\pi i\,\Res(f;z_0)=-\frac{2\pi i\,e^{i\pi/n}}{n}
+\]
+We can now consider the three pieces for $\alpha\to\infty$:
+
+\begin{itemize}
+    \item \underline{Outgoing segment:} $\displaystyle\int_{0}^{\alpha}\frac{dx}{x^n+1}\to I$, which is the desired integral.
+
+    \item \underline{Arc:} Using Prop~3.26(a), since $n\ge 2$, we have,
+    \[
+    \left|\int_{C_\alpha}f\right|\le\frac{1}{\alpha^n-1}\cdot\frac{2\pi\alpha}{n}
+    \xrightarrow[\alpha\to\infty]{}0
+    \]
+
+    \item \underline{Returning segmnet:} We can paramatrize $z=re^{2\pi i/n}$ with $r$ from $\alpha$ to
+    $0$. We get $z^n=r^n e^{2\pi i}=r^n$ and $dz=e^{2\pi i/n}\,dr$, therefore,
+    \[
+    \int_{\alpha}^{0}\frac{e^{2\pi i/n}}{r^n+1}\,dr
+    =-e^{2\pi i/n}\int_{0}^{\alpha}\frac{dr}{r^n+1}
+    \xrightarrow[\alpha\to\infty]{}-e^{2\pi i/n}\,I
+    \]
+\end{itemize}
+
+We can add the three contributions and we see that as $\alpha\to\infty$,
+\[
+I\bigl(1-e^{2\pi i/n}\bigr)=-\frac{2\pi i\,e^{i\pi/n}}{n}
+\]
+We can factor $1-e^{2\pi i/n}=-e^{i\pi/n}\bigl(e^{i\pi/n}-e^{-i\pi/n}\bigr)
+=-e^{i\pi/n}\cdot 2i\sin(\pi/n)$. Therefore, we have,
+\[
+I=\frac{-\,2\pi i\,e^{i\pi/n}}{-\,2i\,n\,e^{i\pi/n}\sin(\pi/n)}
+=\frac{\pi}{n\sin(\pi/n)}
+\]
+which finally gives,
+\[
+\int_{0}^{\infty}\frac{dx}{x^n+1}=\frac{\pi}{n\sin(\pi/n)}.
+\]
+
+\newpage
+\section*{Ex 9.3.14}
+
+\begin{prob}
+Use Proposition 9.33 with $f(z)=(z^2-a^2)^{-1}$ to show that if $a\notin\Z$, then
+\[
+\pi\cot(\pi a)=\frac{1}{a}+\sum_{n=1}^{\infty}\frac{2a}{a^2-n^2}.
+\]
+\end{prob}
+
+\textit{Pf.} Let $f(z)=\dfrac{1}{z^2-a^2}=\dfrac{p(z)}{q(z)}$ with $\deg p=0$ and
+$\deg q=2$, so that $\deg p+2\le\deg q$. We have that its poles $\pm a$ are disjoint from
+$\Z$ because $a\notin\Z$. Therefore, we can use Prop~9.33  to $g(z)=\pi f(z)\cot(\pi z)$ to obtain,
+\[
+\sum_{k=-\infty}^{\infty}\frac{1}{k^2-a^2}
+=-\sum_{q(z)=0}\Res(g;z)=-\bigl(\Res(g;a)+\Res(g;-a)\bigr)
+\]
+Each of these poles is simple. Since $a\notin\Z$, $\cot(\pi z)$ is holomorphic and finite
+at $\pm a$, so using Lemm~9.16 (Simple Pole Lemma) with denominator $z^2-a^2$ of derivative $2z$, we have,
+\begin{align*}
+\Res(g;a) &=\frac{\pi\cot(\pi a)}{2a} \\
+\Res(g;-a) &=\frac{\pi\cot(-\pi a)}{-2a}=\frac{\pi\cot(\pi a)}{2a}
+\end{align*}
+using the fact that $\cot$ is odd. Therefore, we have,
+\[
+\sum_{k=-\infty}^{\infty}\frac{1}{k^2-a^2}=-\frac{\pi\cot(\pi a)}{a}
+\]
+On LHS, we can separate $k=0$ and pair $k$ with $-k$ (for $k\ge 1$), using $k^2=(-k)^2$, which gives,
+\[
+\sum_{k=-\infty}^{\infty}\frac{1}{k^2-a^2}
+=-\frac{1}{a^2}+\sum_{n=1}^{\infty}\frac{2}{n^2-a^2}
+\]
+Therefore, $-\dfrac{1}{a^2}+\sum_{n\ge 1}\dfrac{2}{n^2-a^2}
+=-\dfrac{\pi\cot(\pi a)}{a}$. We can multiply by $-a$ and use
+$\dfrac{-2a}{n^2-a^2}=\dfrac{2a}{a^2-n^2}$ to get,
+\[
+\pi\cot(\pi a)=\frac{1}{a}+\sum_{n=1}^{\infty}\frac{2a}{a^2-n^2}
+\]
+as required. \qed
+
+\newpage
+\section*{Ex 11.1.3}
+
+\begin{prob}
+Complete the proof of Lemma 11.8.
+
+\medskip
+\emph{Lemma 11.8.} Suppose that $|z|<\tfrac12$. Then
+\[
+\tfrac12|z|\le|\Log(1+z)|\le\tfrac32|z|.
+\]
+\end{prob}
+
+\textit{Pf.} From Maclaurin series $\Log(1+z)=\sum_{k\ge 1}(-1)^{k-1}z^k/k$, valid for $|z|<1$. We can divide by $z$ ($z\ne 0$) and compare coefficients with $\tfrac12$.
+Comparing the bounds in equation~(11.2): for $0<|z|<1$, we have,
+\[
+\left|\frac{\Log(1+z)}{z}-1\right|
+=\left|-\frac{z}{2}+\frac{z^2}{3}-\cdots\right|
+\le\frac12\bigl(|z|+|z|^2+\cdots\bigr)=\frac12\frac{|z|}{1-|z|}
+\]
+We can complete the argument. Consider $0<|z|<\tfrac12$. The function
+$t\mapsto t/(1-t)$ is increasing on $[0,1)$, so
+\[
+\frac{|z|}{1-|z|}<\frac{1/2}{1-1/2}=1
+\]
+when,
+\[
+\left|\frac{\Log(1+z)}{z}-1\right|\le\frac12
+\]
+Using the (reverse) triangle inequality, we have,
+\[
+1-\frac12\le\left|\frac{\Log(1+z)}{z}\right|\le 1+\frac12
+\]
+i.e.
+\[
+\frac12\le\left|\frac{\Log(1+z)}{z}\right|\le\frac32
+\]
+We can multiply through by $|z|>0$ to get,
+\[
+\tfrac12|z|\le|\Log(1+z)|\le\tfrac32|z|
+\]
+Using $z=0$, the three quantities equal $0$, so the inequalities hold there as well. This gives the assertion of Lemm~11.8.
+
+\end{document}

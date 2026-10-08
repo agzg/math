@@ -1,0 +1,375 @@
+\documentclass[a4paper]{article}
+\input{head}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\begin{document}
+
+\hrule\medskip
+\begin{minipage}{0.295\textwidth}\raggedright\footnotesize
+Ali Azam
+\end{minipage}%
+\begin{minipage}{0.4\textwidth}\centering
+\large Math 113: Complex Analysis\\
+\normalsize HW \#5
+\end{minipage}%
+\begin{minipage}{0.295\textwidth}\raggedleft
+\today
+\end{minipage}
+\medskip\hrule\bigskip
+
+\section*{Ex 5.5.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $D$ is a domain and $f \in H(D)$ is nonvanishing as well as nonconstant on $D$. Then $z \mapsto |f(z)|$ has no local minimums on $D$.
+\end{tcolorbox}
+
+\textit{Pf.} Unlike Example~5.41, we have $f$ is nonvanishing. We exploit $f$'s nonvanishing property to pass from a minimum of $|f|$ to a maximum of $\displaystyle \big|\frac{1}{f}\big|$.
+
+Using Prop~2.2 (Quotient Rule) the function, $\displaystyle g(z) := \frac{1}{f(z)}$, for $z \in D$,
+is holomorphic on $D$. Also since $f$ is nonconstant, $g$ is also nonconstant.
+
+\medskip
+Assume, for proof by contradiction, that $z \mapsto |f(z)|$ has a local minimum at $z_0 \in D$. Then $\exists\varepsilon > 0$ with $D_\varepsilon(z_0) \subseteq D$ and $|f(z)| \geq |f(z_0)| > 0$, $\forall z \in D_\varepsilon(z_0)$. The $\forall z \in D_\epsilon(z_0):$
+\begin{align*}
+|g(z)| = \frac{1}{|f(z)|} \leq \frac{1}{|f(z_0)|} = |g(z_0)|
+\end{align*}
+therefore $z \mapsto |g(z)|$ has a local maximum at $z_0$. But this contradicts Thm~5.40 (Maximum Modulus Theorem) applied to the nonconstant $g \in H(D)$.
+
+\medskip
+Therefore, $z \mapsto |f(z)|$ has no local minimum on $D$. \qed
+
+\newpage
+\section*{Ex 5.5.3}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $(f_n)$ be a sequence of nonvanishing functions in $H(D)$ for a domain $D$. Suppose that $f_n \to f$ uniformly on compact subsets of $D$. Show that either $f$ is identically zero or $f$ never vanishes on $D$. (This is known as Hurwitz's Theorem.)
+\end{tcolorbox}
+
+\textit{Pf.} We are given that each $f_n \in H(D)$ and $f_n \to f$ uniformly. Using Thm~5.32, we have also that $f \in H(D)$ and $f'_n \to f'$ on compact subsets of $D$.
+
+Assume $f$ is not identically zero. We show $f$ never vanishes on $D$.
+
+\medskip
+Assume, for proof by contradiction, $\exists a \in D$ s.t. $f(a) = 0$. Since $f$ is not identically zero, $f$ is nonconstant, using Thm~5.6 we have the zero set $Z(f)$ is discrete in $D$ and $a$ is a zero of finite order. 
+
+Take $r > 0$ with $\overline{D_r(a)} \subseteq D$ and $f(z) \neq 0$ for $z \in \overline{D_r(a)} \setminus \{a\}$.
+
+\medskip
+Let $\gamma(t) = a + r e^{it}$ for $t \in [0, 2\pi]$. Then $\gamma^*$ is compact and disjoint from $Z(f)$, thus,
+\[
+m := \min_{z \in \gamma^*} |f(z)| > 0.
+\]
+By uniform convergence on the compact set $\gamma^*$, $\exists N \in \mathbb{N}$ s.t. $|f_n(z) - f(z)| < m/2$, $\forall z \in \gamma^*$ and $n \geq N$. Using the reverse triangle inequality for $z \in \gamma^*$ and $n \geq N$, we have,
+\[
+|f_n(z)| \geq |f(z)| - |f_n(z) - f(z)| \geq m - m/2 = m/2 > 0
+\]
+Therefore, both $|f|$ and $|f_n|$ are bounded below by $m/2$ for $n \geq N$ on $\gamma^*$. Thus, the convergences $f_n \to f$ and $f_n' \to f'$ are uniform on $\gamma^*$. Using a standard estimate, we have,
+\[
+\frac{f_n'}{f_n} \to \frac{f'}{f}
+\]
+uniformly on $\gamma^*$.
+
+\medskip
+Take any $R > r$ and $\overline{D_R(a)} \subseteq D$. Using Thm~5.35 in the convex domain $D_R(a)$, we have: $\forall h \in H(D_R(a))$ with finitely many zeros of which none are on $\gamma^*$,
+\[
+\frac{1}{2\pi i} \int_\gamma \frac{h'(w)}{h(w)}\, dw = N_h
+\]
+where $N_h$ is the number of zeros of $h$ inside $\gamma$, counted with multiplicity (since $\mathrm{Ind}_\gamma = 1$ on its interior).
+
+We have $\forall n \geq N$, $f_n$ is nonvanishing on $D$. Therefore, $N_{f_n} = 0$, and
+\[
+\frac{1}{2\pi i} \int_\gamma \frac{f_n'(w)}{f_n(w)}\, dw = 0
+\]
+By uniform convergence of $\displaystyle \frac{f_n'}{f_n} \to \frac{f'}{f}$ on $\gamma^*$, we have the limit:
+\[
+N_f = \frac{1}{2\pi i} \int_\gamma \frac{f'(w)}{f(w)}\, dw = \lim_{n\to\infty} \frac{1}{2\pi i} \int_\gamma \frac{f_n'(w)}{f_n(w)}\, dw = 0
+\]
+But since $a$ is a zero of $f$ inside $\gamma$ of order $\geq 1$, we must have $N_f \geq 1$, which gives us a contradiction.
+
+\medskip
+Therefore, $f$ never vanishes on $D$. \qed
+
+\newpage
+\section*{Ex 5.5.4}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $D$ is a bounded domain and that $f$ is continuous on the closure $\overline{D}$ and holomorphic and nonconstant on $D$. If $|f(z)|$ is constant on the boundary $\partial D$, then show that $f$ has a zero in $D$.
+\end{tcolorbox}
+
+\textit{Pf.} Let $|f(z)| = c$, $\forall z \in \partial D$, with $c \geq 0$. Then we can consider:
+
+\begin{itemize}
+    \item \underline{Case $c = 0$:} Then $f \equiv 0$ on $\partial D$. By Cor~5.42 applied to the bounded domain $D$ with $f$ continuous on $\overline{D}$ and holomorphic on $D$, we have that $f$ attains its maximum on the boundary $\partial D$ of $D$, i.e.
+    \[
+    \max_{z \in \overline{D}} |f(z)| = \max_{z \in \partial D} |f(z)| = 0,
+    \]
+    so $f \equiv 0$ on $\overline{D}$. This contradicts our assumption of $f$ being nonconstant on $D$.
+
+    \item \underline{Case $c > 0$:} Assume, for proof by contradiction, that $f$ has no zeros in $D$. Using the fact $|f| = c > 0$ on $\partial D$, this gives $f \neq 0$ on all of $\overline{D}$. Therefore, using Prop~2.2 again, we have $\displaystyle g := \frac{1}{f}$ is continuous on $\overline{D}$, holomorphic, and nonconstant on $D$.
+
+    Now apply Cor~5.42 to both $f$ and $g$:
+    \begin{align*}
+    \max_{z \in \overline{D}} |f(z)| &= \max_{z \in \partial D} |f(z)| = c \\
+    \max_{z \in \overline{D}} |g(z)| &= \max_{z \in \partial D} \frac{1}{|f(z)|} = \frac{1}{c}
+    \end{align*}
+    This gives that $|f(z)| \leq c$ on $\overline{D}$, and simultaneously $|f(z)| \geq c$ on $\overline{D}$. Therefore, $|f| \equiv c$ on $\overline{D}$, in particular on the domain $D$.
+    
+    By~Ex 2.2.4, since $f \in H(D)$ and $z \mapsto |f(z)|$ is constant on $D$, $f$ must be constant on $D$. This contradicts our assumption.
+\end{itemize}
+
+Therefore $f$ has a zero in $D$. \qed
+\newpage
+\section*{Ex 5.5.6}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f$ is entire and one-to-one. Show that $f(z) = az + b$ with $a \neq 0$.
+\end{tcolorbox}
+
+\textit{Pf.} Let $g : \mathbb{C} \setminus \{0\} \to \mathbb{C}$ s.t. 
+\[
+g(z) := f\big(\frac{1}{z}\big)
+\]
+Since $f$ is entire and $z \mapsto 1/z$ is holomorphic on $\mathbb{C} \setminus \{0\}$, by Prop~2.2 (Chain Rule) $g$ is holomorphic on $\mathbb{C} \setminus \{0\}$, so $0$ is an isolated singularity of $g$. Using Def~5.20, we can consider the singulrity types for g:
+
+\begin{itemize}
+\item \underline{Removable:} If $0$ is removable for $g$, then by Prop~5.13(d) $\exists r, M > 0$ s.t. $|g(z)| \leq M$ for $z \in D_r'(0)$, i.e.\ $|f(w)| \leq M$ for $|w| > 1/r$. Combined with the continuity of $f$ on $\overline{D_{1/r}(0)}$, $f$ is bounded on $\mathbb{C}$. 
+
+Then, using Thm~5.26 (Liouville), $f$ is constant, which contradicts injectivity.
+
+\item \underline{Essential:} If $0$ is essential for $g$, then by Thm~5.21 (Casorati-Weierstrass), $\forall \rho > 0$ the image $g(D_\rho'(0))$ is dense in $\mathbb{C}$. I.e., $f\big(\{|w| > 1/\rho\}\big)$ is dense in $\mathbb{C}$ for every $\rho > 0$.
+
+Take $\rho = 1$, s.t. $f(\{|w| > 1\})$ is dense. But Thm~5.38 (Open Mapping Theorem) applied to the nonconstant entire $f$ on the domain $D_1(0)$ gives, the set $f(D_1(0))$ is open and nonempty (contains $f(0)$). A dense subset of $\mathbb{C}$ meets every nonempty open set, $\exists w_1 \in \{|w| > 1\}$ and $\exists w_2 \in D_1(0)$ with $f(w_1) = f(w_2)$. Since $|w_1| > 1 > |w_2|$, $w_1 \neq w_2$, which also contradicts injectivity.
+
+\item \underline{Pole:} The remaining case gives that $g$ must have a pole, of order $m \geq 1$, at $0$. This means $f$ has a pole of order $m$ at $\infty$, so by Lemma~5.23, $f$ is a polynomial of degree $m$.
+\end{itemize}
+
+Assume, $m \geq 2$. Then, the polynomial $f(z) - f(0)$ has degree $m$, hence by the Fundamental Theorem of Algebra (Ex~5.3.7) it has exactly $m \geq 2$ roots in $\mathbb{C}$, counted with multiplicity. 
+
+If two of these roots are distinct, $f$ takes the value $f(0)$ at two distinct points, which contradicts injectivity again. Otherwise all $m$ roots coincide at $z_0 \in \mathbb{C}$, which gives $z_0$ is a zero of order $m \geq 2$ of $f - f(0)$. 
+
+\medskip
+By Thm~5.37 (Local Behavior), $\exists\varepsilon > 0$ s.t. $w$ sufficiently close (but not equal) to $0$, the equation $f(z) - f(0) = w$ has $m \geq 2$ distinct solutions in $D_\varepsilon(z_0)$, which again contradicts injectivity.
+
+\medskip
+Therefore $m = 1$, so $f(z) = a z + b$ with $a \neq 0$. \qed
+
+\newpage
+\section*{LH-1}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Recall from calculus that the Mean Value Theorem says that if $f$ is a continuous real-valued function on $[a,b]$ and if $f$ is differentiable on $(a,b)$, then there is a $c \in (a,b)$ such that
+\[
+\frac{f(b) - f(a)}{b - a} = f'(c).
+\]
+\begin{itemize}
+\item[\textbf{(a)}] Show that the Mean Value Theorem need not hold for holomorphic functions---consider $f(z) = \exp(z)$ and $[a,b] = [0, 2\pi i]$.
+\item[\textbf{(b)}] Nevertheless, show that if $|f'(z)| \leq M$ for all $z \in [w_1, w_2]$, then
+\[
+|f(w_2) - f(w_1)| \leq M |w_2 - w_1|.
+\]
+\end{itemize}
+\end{tcolorbox}
+
+\textit{Pf.} \begin{itemize}
+\item[\textbf{(a)}] Let $f(z) = \exp(z)$. Using Prop~2.16, $f$ is entire and $f'(z) = \exp(z)$. Therefore, we have
+\[
+\frac{f(2\pi i) - f(0)}{2\pi i - 0} = \frac{e^{2\pi i} - e^0}{2\pi i} = \frac{1 - 1}{2 \pi i} = 0
+\]
+i.e. any $c$ satisfying the Mean Value Theorem identity needs $f'(c) (2\pi i - 0) = 0 \implies \exp(c) = 0$. But $|\exp(c)| = e^{\mathrm{Re}(c)} > 0$, $
+\forall c \in \mathbb{C}$. Thus, no such $c$ exists and the Mean Value Theorem fails for $f$ on $[0, 2\pi i]$.
+
+\item[\textbf{(b)}] Take $|f'(z)| \leq M$ on the line segment $[w_1, w_2]$, in particular $f'$ is defined (and holomorophic, by Cor~4.13, hence continuous) on this segment. 
+
+We can parameterize the segment by $\gamma : [0,1] \to \mathbb{C}$ s.t. $\gamma(t) = w_1 + t(w_2 - w_1)$. Then $\gamma'(t) = w_2 - w_1$ and, by Prop~2.2 (Chain Rule), the composition $t \mapsto f(\gamma(t))$ is differentiable on $[0,1]$ with derivative $f'(\gamma(t))(w_2 - w_1)$.
+
+Using the Fundamental Theorem of Calculus applied to the real and imaginary parts,
+\[
+f(w_2) - f(w_1) = \int_0^1 f'(\gamma(t))(w_2 - w_1)\, dt = \int_\gamma f'(w)\, dw
+\]
+Now we apply the standard path-integral estimate from Prop~3.26 to obtain the required form,
+\[
+|f(w_2) - f(w_1)| 
+= \left| \int_\gamma f'(w)\, dw \right|
+\leq \max_{z \in [w_1,w_2]} |f'(z)| \mathrm{length}(\gamma)
+\leq M |w_2 - w_1|
+\]
+\end{itemize}
+\newpage
+\section*{LH-2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+(The Indeterminate Form $\frac{0}{0}$---Baby Version.) Suppose that $D$ is a domain, $a \in D$, and that $f$ and $g$ are nonconstant functions in $H(D)$ such that $f(a) = 0 = g(a)$ and $g'(a) \neq 0$. Show that
+\[
+\lim_{z \to a} \frac{f(z)}{g(z)} = \frac{f'(a)}{g'(a)} = \lim_{z \to a} \frac{f'(z)}{g'(z)}.
+\]
+\textbf{Hint:} $\dfrac{f(z)}{g(z)} = \dfrac{(f(z) - f(a))/(z-a)}{(g(z) - g(a))/(z-a)}$.
+\end{tcolorbox}
+
+\textit{Pf.} Given $g'(a) \neq 0$ and $g$ is continuous (using Cor~4.13 as above), $\exists r > 0$ s.t. $g(z) \neq g(a) = 0$, $\forall z \in D_r'(a)$. This is true since otherwise the difference quotient for $g'(a)$ would have a sequence with limit $0$, giving $g'(a) = 0$). 
+
+On $D_r'(a)$ we can divide and use $f(a) = g(a) = 0$:
+\[
+\frac{f(z)}{g(z)}
+= \frac{f(z) - f(a)}{g(z) - g(a)}
+= \frac{\dfrac{f(z) - f(a)}{z - a}}{\dfrac{g(z) - g(a)}{z - a}}.
+\]
+By Def~2.1, as $z \to a$ the numerator tends to $f'(a)$ and the denominator tends to $g'(a) \neq 0$. By Prop~2.2 (Quotient Rule),
+\[
+\lim_{z \to a} \frac{f(z)}{g(z)} = \frac{f'(a)}{g'(a)}
+\]
+
+\medskip
+Now, using Cor~4.13, both $f', g' \in H(D)$, and in particular both are continuous on $D$. Since $g'(a) \neq 0$, $\exists r' > 0$ s.t. $g'(z) \neq 0$ on $D_{r'}(a)$. By Prop~2.2, on this disk we have $\displaystyle \frac{f'}{g'}$ is continuous. Therefore,
+\[
+\lim_{z \to a} \frac{f'(z)}{g'(z)} = \frac{f'(a)}{g'(a)}
+\]
+
+\newpage
+\section*{LH-3}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+(The Indeterminate Form $\frac{0}{0}$---Adult Version.) Suppose that $D$ is a domain, $a \in D$, and that $f$ and $g$ are nonconstant functions in $H(D)$ such that $f(a) = 0 = g(a)$. We want to investigate
+\[
+\lim_{z \to a} \frac{f(z)}{g(z)}.
+\]
+Note that $f$ and $g$ must have zeros of finite order $m$ and $n$, respectively, at $a$.
+
+\begin{itemize}
+\item[\textbf{(a)}] What kind of isolated singularity does $h = f/g$ have at $a$? (Your answer will depend on $m$ and $n$.)
+\item[\textbf{(b)}] If $m = n$, show that
+\[
+\lim_{z \to a} \frac{f(z)}{g(z)} = \frac{f^{(m)}(a)}{g^{(m)}(a)}.
+\]
+\end{itemize}
+\end{tcolorbox}
+
+\textit{Pf.} By Thm~5.6, since $f$ and $g$ are given as nonconstant, their zeros at $a$ have finite order, $m \geq 1$ and $n \geq 1$. By Lemm~5.4, $\exists F, G \in H(D)$ with $F(a) \neq 0$ and $G(a) \neq 0$, s.t.
+\begin{align*}
+f(z) &= (z - a)^m F(z)\\
+g(z) &= (z - a)^n G(z)
+\end{align*}
+$\forall z \in D$. Also, the proof for Lemm~5.4 gives,
+\begin{align*}
+F(a) &= \frac{f^{(m)}(a)}{m!}\\
+G(a) &= \frac{g^{(n)}(a)}{n!}
+\end{align*}
+
+By continuity, since $G(a) \neq 0$, $\exists r > 0$ with $\overline{D_r(a)} \subseteq D$ and $G(z) \neq 0$ on $D_r(a)$. Then $g(z) = 0$ in $D_r(a)$ at $z = a$, By Prop~2.2, $h = f/g$ is well-defined and holomorphic on $D_r(a) \setminus \{a\}$. Hence it has an isolated singularity at $a$. On $D_r(a) \setminus \{a\}$, we have,
+\begin{align*}
+h(z) = \frac{(z-a)^m F(z)}{(z-a)^n G(z)} = (z-a)^{m-n} \varphi(z)
+\end{align*}
+where $\varphi(z) := F(z)/G(z) \in H(D_r(a))$ and $\varphi(a) = F(a)/G(a) \neq 0$ using Prop~2.2.
+
+\begin{itemize}
+    \item[\textbf{(a)}] We consider the singularity of $h$ at $a$ when:
+    \begin{itemize}
+        \item[\textbullet] \underline{$m > n$:} $h(z) = (z-a)^{m-n} \varphi(z)$, and the RHS is holomorphic on $D_r(a)$, with $0$ at $a$. 
+        
+        Therefore, $a$ is a removable singularity of $h$. Applying Lemm~5.4 to this holomorphic extension, the extended $h$ has a zero of order $m - n$ at $a$.
+        
+        \item[\textbullet] \underline{$m = n$:} $h(z) = \varphi(z)$ on $D_r(a) \setminus \{a\}$, which gives a holomorphic extension to $D_r(a)$ with value $\varphi(a) = F(a)/G(a) \neq 0$. 
+        
+        Therefore, $a$ is a removable singularity of $h$, with a nonzero limit.
+        
+        \item[\textbullet] \underline{$m < n$:} $h(z) = \varphi(z)/(z-a)^{n-m}$ with $\varphi \in H(D_r(a))$ and $\varphi(a) \neq 0$. Using Cor~5.18, $a$ is a pole of $h$ of order $n - m$.
+    \end{itemize}
+    
+    \item[\textbf{(b)}] When $m = n$, using the case for $m = n$ in part (a), the limit at $a$ exists and can be expressed as,
+    \[
+    \lim_{z \to a} \frac{f(z)}{g(z)} = \lim_{z \to a} \varphi(z) = \frac{F(a)}{G(a)} = \frac{f^{(m)}(a)/m!}{g^{(m)}(a)/m!} = \frac{f^{(m)}(a)}{g^{(m)}(a)}
+    \]
+\end{itemize}
+\newpage
+\section*{LH-4}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+(The Indeterminate Form $\frac{\infty}{\infty}$.) Suppose that $D$ is a domain, $a \in D$, and that $f$ and $g$ are functions in $H(D \setminus \{a\})$ such that $f$ and $g$ have poles of order $m$ and $n$, respectively, at $a$. We want to investigate
+\[
+\lim_{z \to a} \frac{f(z)}{g(z)}.
+\]
+\begin{itemize}
+\item[\textbf{(a)}] What kind of isolated singularity does $h = f/g$ have at $a$? (Your answer will depend on $m$ and $n$.)
+\item[\textbf{(b)}] Suppose that $m = n$ and that $\sum_{j=1}^{n} \dfrac{b_j}{(z-a)^j}$ is the principal part of $f$ at $a$ and that $\sum_{j=1}^{n} \dfrac{c_j}{(z-a)^j}$ is the principal part of $g$ at $a$. Show that
+\[
+\lim_{z \to a} \frac{f(z)}{g(z)} = \frac{b_n}{c_n}.
+\]
+\end{itemize}
+\end{tcolorbox}
+
+\textit{Pf.} By Cor~5.18, since $f$ has a pole of order $m$ at $a$ and $g$ has a pole of order $n$ at $a$, $\exists F, G \in H(D)$ with $F(a) \neq 0$ and $G(a) \neq 0$ s.t.
+\begin{align*}
+f(z) &= \frac{F(z)}{(z-a)^m} \\
+g(z) &= \frac{G(z)}{(z-a)^n}
+\end{align*}
+$\forall z \in D \setminus \{a\}$. By continuity, take $r > 0$ with $\overline{D_r(a)} \subseteq D$, and $G(z) \neq 0$ on $D_r(a)$. Then $\forall z \in D_r(a) \setminus \{a\}$, $g(z) \neq 0$. Therefore, by Prop~2.2, $h = f/g$ is holomorphic and has an isolated singularity at $a$. We have,
+\[
+h(z) = \frac{F(z)/(z-a)^m}{G(z)/(z-a)^n} = (z-a)^{n-m}\varphi(z)
+\]
+where $\varphi(z) := F(z)/G(z) \in H(D_r(a))$ and $\varphi(a) = F(a)/G(a) \neq 0$, as in LH-3.
+
+\begin{itemize}
+    \item[\textbf{(a)}] We consider the singularity of $h$ at $a$ when:
+    \begin{itemize}
+        \item[\textbullet] \underline{$m > n$:} $h(z) = \varphi(z)/(z-a)^{m-n}$ with $\varphi(a) \neq 0$. Using Cor~5.18, $a$ is a pole of $h$ of order $m - n$.
+        
+        \item[\textbullet] \underline{$m = n$:} $h(z) = \varphi(z)$ on $D_r(a) \setminus \{a\}$, which has a holomorphic extension to $D_r(a)$ with nonzero value $\varphi(a)$. 
+        
+        Therefore, $a$ is a removable singularity of $h$ with a nonzero limit.
+        
+        \item[\textbullet] \underline{$m < n$:} $h(z) = (z-a)^{n-m} \varphi(z)$ has a holomorphic extension to $D_r(a)$ with value $0$ at $a$. 
+        
+        Therefore, $a$ is a removable singularity. Applying Lemm~5.4 to this holomorphic extension, the extended h has a zero of order $n - m$ at $a$.
+    \end{itemize}
+    \item[\textbf{(b)}] When $m = n$, use Def~5.14 (since $\sum_{j=1}^{n} b_j/(z-a)^j$ is the principal part of $f$ at $a$) to write,
+    \[
+    r_f(z) := f(z) - \sum_{j=1}^{n} \frac{b_j}{(z-a)^j}
+    \]
+    with a removable singularity at $a$ with $b_n \neq 0$. Multiplying by $(z-a)^n$,
+    \[
+    (z-a)^n f(z) = \sum_{j=1}^{n} b_j (z-a)^{n-j} + (z-a)^n r_f(z)
+    \]
+    Using the holomorphic extension of $r_f$, the RHS extends to a holomorphic function on $D$, $F(z)$. Then we have $F \in H(D)$, therefore $f(z) = F(z)/(z-a)^n$ on $D \setminus \{a\}$. Evaluating at $z = a$ gives $F(a) = b_n$. 
+    
+    The same argument gives $g(z) = G(z)/(z-a)^n$ with $G \in H(D)$ and $G(a) = c_n$.
+    
+    By the uniqueness of representation in Cor~5.18 (i.e., $F$ and $G$ are exactly the holomorphic functions at the start of this solution), we have on $D_r(a) \setminus \{a\}$ as $z \to a$,
+    \[
+    \frac{f(z)}{g(z)} = \frac{F(z)}{G(z)} \to \frac{F(a)}{G(a)} = \frac{b_n}{c_n}
+    \]
+    using continuity of $F/G$ at $a$ by Prop~2.2, given $G(a) = c_n \neq 0$. \qed
+\end{itemize}
+
+\newpage
+\section*{EP-3}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Verify the claim made in lecture during the proof of the general Cauchy Theorem: suppose $D$ is a domain and that $g$ is continuous on $D \times D$. If $z_n \to z$ in $D$ and if $K \subseteq D$ is compact, show that $f_n(\cdot) = g(z_n, \cdot)$ converges uniformly on $K$ to $f(\cdot) = g(z, \cdot)$. (Hint: there are lots of ways to approach this problem. I used the fact that a continuous function on a compact metric space is necessarily uniformly continuous---a reference is Theorem 4.19 in Rudin's \emph{Principles of Mathematical Analysis} or Theorem 1.33 of Folland's \emph{Advanced Calculus}.)
+\end{tcolorbox}
+
+\textit{Pf.} Take a compact subset of $D \times D$ where $g$ is uniformly continuous, and then use that to extract the uniform estimate on $K$. 
+
+Let
+\[
+A := \{z_n : n \in \mathbb{N}\} \cup \{z\} \subseteq D.
+\]
+We can show that $A$ is compact. It is bounded since the convergent sequence $(z_n)$ is bounded, and closed since any limit point of $A$ is the limit of a subsequence of $(z_n)$ (or a constant subsequence equal to $z$), and every subsequence of $(z_n)$ converges to $z \in A$. Using the Heine-Borel Theorem, we have $A$ is compact. Also, $A \subseteq D$.
+
+\medskip
+Then $A \times K \subseteq D \times D$ is compact, as the product of two compact sets in $\mathbb{C}$ (which works for $\mathbb{R}^2$ also). 
+
+Now we add the product metric, $d\big((z_1,w_1),(z_2,w_2)\big) := \max(|z_1 - z_2|, |w_1 - w_2|)$, or equivalent to $\mathbb{C} \times \mathbb{C}$. The restriction $g|_{A \times K}$ is continuous on the compact metric space $A \times K$, is hence uniformly continuous (by Rudin's Theorem 4.19).
+
+\medskip
+Let $\varepsilon > 0$, and choose $\delta > 0$ s.t. $\forall (\zeta_1, w_1), (\zeta_2, w_2) \in A \times K$, we have,
+\[
+d\big((\zeta_1,w_1),(\zeta_2,w_2)\big) < \delta \implies |g(\zeta_1, w_1) - g(\zeta_2, w_2)| < \varepsilon
+\]
+Since $z_n \to z$, there exists $N \in \mathbb{N}$ such that $|z_n - z| < \delta$ for all $n \geq N$. Then $\forall n \geq N$ and $\forall w \in K$, the points $(z_n, w)$ and $(z, w)$ both lie in $A \times K$, and,
+\begin{align*}
+d\big((z_n, w), (z, w)\big) &= |z_n - z| < \delta\\
+\implies
+|f_n(w) - f(w)| &= |g(z_n, w) - g(z, w)| < \varepsilon
+\end{align*}
+This bound is independent of $w \in K$. Therefore, $f_n \to f$ uniformly on $K$. \qed
+
+\end{document}

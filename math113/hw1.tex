@@ -1,0 +1,389 @@
+\documentclass[a4paper]{article}
+\input{head}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\begin{document}
+
+\hrule\medskip
+\begin{minipage}{0.295\textwidth}\raggedright\footnotesize
+Ali Azam
+\end{minipage}%
+\begin{minipage}{0.4\textwidth}\centering
+\large Math 113: Complex Analysis\\
+\normalsize HW \#1
+\end{minipage}%
+\begin{minipage}{0.295\textwidth}\raggedleft
+\today
+\end{minipage}
+\medskip\hrule\bigskip
+
+%% ================================================================
+%%  PART (a)
+%% ================================================================
+
+\section*{Ex 1.4.1}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Prove Proposition 1.16: The complex exponential function is periodic with period $2\pi i$. That is, $e^{z+2\pi i} = e^z$ for all $z$. Furthermore for all $z, w \in \mathbb{C}$ we have
+\[
+e^{z+w} = e^z e^w, \qquad \frac{e^z}{e^w} = e^{z-w}, \qquad e^{-z} = \frac{1}{e^z}.
+\]
+We have $e^z = e^w$ if and only if $w = z + 2\pi ik$ for some $k \in \mathbb{Z}$. In particular, $e^z = 1$ if and only if $z$ is an integer multiple of $2\pi i$. Moreover, $(e^z)^n = e^{nz}$ for all $n \in \mathbb{Z}$.
+\end{tcolorbox}
+
+\textit{Pf.} From Definition 1.14, we have:
+\[
+e^{x+iy} = e^x\cos y + ie^x\sin y = e^x(\cos y + i\sin y).
+\]
+
+\medskip\noindent We show $e^{z+w} = e^z e^w$.
+Let $z = x + iy$ and $w = u + iv$ (where u, v, x, y $\in$ $\mathbb{Z}$). Then
+\begin{align*}
+e^z e^w
+  &= \bigl[e^x(\cos y + i\sin y)\bigr]\bigl[e^u(\cos v + i\sin v)\bigr] \\
+  &= e^{x+u}\bigl[(\cos y\cos v - \sin y\sin v) + i(\sin y\cos v + \cos y\sin v)\bigr].
+\end{align*}
+By the trignometric sum formulas, we have $\cos(y+v)$ and $\sin(y+v)$. We can write,
+\begin{align*}
+e^z e^w = e^{x+u}\bigl[\cos(y+v) + i\sin(y+v)\bigr]
+\end{align*}
+Since $z + w = (x+u) + i(y+v)$, we get from Definition~1.14,
+\[
+e^{z+w} = e^{x+u}\bigl[\cos(y+v) + i\sin(y+v)\bigr]
+\]
+which matches above.  Hence $e^{z+w} = e^z e^w$. \qed
+
+\medskip\noindent
+We show periodicity using the product formula,
+\[
+e^{z + 2\pi i} = e^z \cdot e^{2\pi i}.
+\]
+Since $e^{2\pi i} = e^0(\cos 2\pi + i\sin 2\pi) = 1(1 + 0) = 1$, so $e^{z+2\pi i} = e^z$. \qed
+
+\medskip\noindent
+Further, since $e^z = e^{(z-w)+w} = e^{z-w} e^w$, dividing both sides by $e^w$ (which is nonzero because $|e^w| = e^{\operatorname{Re}(w)} > 0$) gives
+\[
+\frac{e^z}{e^w} = e^{z-w}.
+\]
+We get the quotient in the special case where $z = 0$, which gives $e^{-w} = e^0/e^w = 1/e^w$. \qed
+
+\medskip\noindent
+Let $e^z = e^w$, then we get $e^{z-w} = 1$.  Write $z - w = a + ib$ (where $a, b \in \mathbb{R}$).  Then
+\[
+|e^{z-w}| = |e^a(\cos b + i\sin b)| = e^a\underbrace{\sqrt{\cos^2 b + \sin^2 b}}_{=\,1} = e^a.
+\]
+So $e^{z-w} = 1$ causes $e^a = 1$, hence $a = 0$.  This leaves $e^{ib} = \cos b + i\sin b = 1$, which requires $\cos b = 1$ and $\sin b = 0$.  Both hold simultaneously iff $b = 2\pi k$ for some $k \in \mathbb{Z}$.  Therefore $z - w = 2\pi ik$.
+
+In particular, $e^z = 1 = e^0$ iff $z = 2\pi ik$ for some $k \in \mathbb{Z}$. \qed
+
+\medskip\noindent
+For $(e^z)^n = e^{nz}$, where $n \in \mathbb{Z}$. We can check:
+\begin{itemize}
+    \item \underline{Case $n \geq 0$:} Use induction on $n$.  The base case $n = 0$ gives $(e^z)^0 = 1 = e^0$.  If $(e^z)^n = e^{nz}$, then $(e^z)^{n+1} = e^{nz} e^z = e^{(n+1)z}$ by the product formula.
+    
+    \item \underline{Case $n < 0$:} Let $n = -m$ (where $m \in \mathbb{Z^+}$). Then
+    \[
+    (e^z)^n = \frac{1}{(e^z)^m} = \frac{1}{e^{mz}} = e^{-mz} = e^{nz}.
+    \]
+\end{itemize}
+Thus shown $(e^z)^n = e^{nz}$ for integer powers. \qed
+\newpage
+%% ================================================================
+\section*{Ex 1.4.8(a)}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Use (1.6), De Moivre's Formula, and the geometric sum $1 + z + \cdots + z^n = \dfrac{z^{n+1}-1}{z-1}$ to prove the following assuming $0 < \theta < 2\pi$:
+\[
+1 + \cos\theta + \cdots + \cos(n\theta) = \frac{1}{2} + \frac{\sin\bigl((n+\tfrac{1}{2})\theta\bigr)}{2\sin(\theta/2)}.
+\]
+\end{tcolorbox}
+
+\textit{Pf.} Let $z = e^{i\theta}$.  Since $0 < \theta < 2\pi$, we have $z \neq 1$.  By De Moivre: $z^k = e^{ik\theta} = \cos(k\theta) + i\sin(k\theta)$.  Therefore
+\[
+\sum_{k=0}^n \cos(k\theta) = \operatorname{Re}\!\left(\sum_{k=0}^n e^{ik\theta}\right).
+\]
+
+Since $z = e^{i\theta} \neq 1$,
+\[
+\sum_{k=0}^n z^k = \frac{z^{n+1} - 1}{z - 1} = \frac{e^{i(n+1)\theta} - 1}{e^{i\theta} - 1}.
+\]
+
+Multiply top and bottom by $e^{-i\theta/2}$:
+\[
+\frac{e^{i(n+1)\theta}-1}{e^{i\theta}-1}
+= \frac{e^{-i\theta/2}\bigl(e^{i(n+1)\theta}-1\bigr)}{e^{-i\theta/2}\bigl(e^{i\theta}-1\bigr)}
+= \frac{e^{i(n+\frac{1}{2})\theta} - e^{-i\theta/2}}{e^{i\theta/2} - e^{-i\theta/2}}.
+\]
+From (1.6), we have $e^{i\alpha} - e^{-i\alpha} = 2i\sin\alpha$, so the denominator is $2i\sin(\theta/2)$.  Thus
+\[
+\sum_{k=0}^n e^{ik\theta} = \frac{e^{i(n+\frac{1}{2})\theta} - e^{-i\theta/2}}{2i\sin(\theta/2)}.
+\]
+
+For any complex number $\alpha$, we have $\operatorname{Re}(\alpha/(2i\sin(\theta/2))) = \operatorname{Im}(\alpha)/(2\sin(\theta/2))$, since dividing by $i$ rotates $\alpha$ by $-\pi/2$, which swaps imaginary and real parts.  Then:
+\begin{align*}
+\operatorname{Re}\!\left(\frac{e^{i(n+\frac{1}{2})\theta} - e^{-i\theta/2}}{2i\sin(\theta/2)}\right)
+&= \frac{\operatorname{Im}\!\bigl(e^{i(n+\frac{1}{2})\theta}\bigr) - \operatorname{Im}\!\bigl(e^{-i\theta/2}\bigr)}{2\sin(\theta/2)} \\
+&= \frac{\sin\bigl((n+\tfrac{1}{2})\theta\bigr) - (-\sin(\theta/2))}{2\sin(\theta/2)} \\
+&= \frac{\sin\bigl((n+\tfrac{1}{2})\theta\bigr) + \sin(\theta/2)}{2\sin(\theta/2)}.
+\end{align*}
+Split the fraction:
+\[
+\sum_{k=0}^n \cos(k\theta) = \frac{\sin(\theta/2)}{2\sin(\theta/2)} + \frac{\sin\bigl((n+\tfrac{1}{2})\theta\bigr)}{2\sin(\theta/2)} = \frac{1}{2} + \frac{\sin\bigl((n+\tfrac{1}{2})\theta\bigr)}{2\sin(\theta/2)}.
+\]
+\qed
+
+\newpage
+%% ================================================================
+\section*{Ex 1.4.9}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Observe that the $n$th-roots of $1$ are given by $\{1, \omega, \ldots, \omega^{n-1}\}$ where $\omega = e^{2\pi i/n}$. Assuming $n > 1$, show that $1 + \omega + \cdots + \omega^{n-1} = 0$. Prove a similar result for the $n$th-roots of $-1$.
+\end{tcolorbox}
+
+\textit{Pf.} From Proposition~1.19, the $n$th-roots of $1$ are $\omega^k$ for $k = 0, 1, \ldots, n-1$, where $\omega = e^{2\pi i/n}$.  Since $n > 1$, we have $\omega \neq 1$, so the geometric sum formula applies:
+\[
+1 + \omega + \omega^2 + \cdots + \omega^{n-1} = \frac{\omega^n - 1}{\omega - 1}.
+\]
+But $\omega^n = (e^{2\pi i/n})^n = e^{2\pi i} = 1$ by Proposition~1.16, so
+\[
+1 + \omega + \omega^2 + \cdots + \omega^{n-1} = \frac{1 - 1}{\omega - 1} = 0.
+\]
+
+This makes sense geometrically since the $n$th-roots of unity give vertices on the regular $n$-gon on the the unit circle, centered at the origin. Symmetrically, the cetntroid should be 0.
+
+\medskip\noindent
+Let $-1 = e^{i\pi}$.  By Proposition~1.19, the $n$th-roots of $-1$ are
+\[
+\zeta_k = e^{i(\pi + 2\pi k)/n} \text{ }(\text{for } k = 0, 1, \ldots, n-1)
+\]
+Let $\alpha = \zeta_0 = e^{i\pi/n}$.  Then
+\[
+\zeta_k = e^{i\pi/n} e^{2\pi ik/n} = \alpha\omega^k.
+\]
+Factoring out $\alpha$:
+\[
+\sum_{k=0}^{n-1} \zeta_k = \alpha\sum_{k=0}^{n-1}\omega^k = \alpha\cdot 0 = 0,
+\]
+using the result above. \qed
+
+\newpage
+%% ================================================================
+\section*{Ex 1.4.13}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $p(z) = a_n z^n + \cdots + a_1 z + a_0$ has real coefficients.
+\begin{itemize}
+\item[(a)] Show that if $z_0$ is a root of $p$, then either $z_0$ is real or $\overline{z_0}$ is also a root of $p$.
+\item[(b)] Assuming the Fundamental Theorem of Algebra, show that $p$ must factor as
+\[
+p(z) = a_n(z - r_1)\cdots(z - r_k)\,q_1(z)\cdots q_s(z)
+\]
+where all the $r_j$ are real and each $q_l(z)$ is an irreducible quadratic polynomial with real coefficients and no real roots. (Hint: $(z-w)(z-\overline{w}) = z^2 - 2\operatorname{Re}(w)z + |w|^2$.)
+\item[(c)] Factor $p(z) = z^4 + z^3 + z^2 + z + 1$ into a product of irreducible quadratics. (See Ex 1.4.10.)
+\end{itemize}
+\end{tcolorbox}
+
+\textit{Pf.} \textbf{(a)}
+We know complex conjugation respects addition and multiplication: $\overline{\alpha+\beta} = \overline{\alpha}+\overline{\beta}$ and $\overline{\alpha\beta} = (\overline{\alpha})(\overline{\beta})$.  
+\medskip
+
+We do induction on $k$ for "$\overline{z^k} = \overline{z}^k$" ($\forall k \in \mathbb{Z} \geq 0$).  Since each coefficient $a_k$ is real, $\overline{a_k} = a_k$.  Therefore
+\[
+\overline{p(z_0)} = \overline{\sum_{k=0}^n a_k z_0^k} = \sum_{k=0}^n \overline{a_k}\cdot\overline{z_0}^k = \sum_{k=0}^n a_k\,\overline{z_0}^k = p(\overline{z_0}).
+\]
+In the base case, if $p(z_0) = 0$, then $p(\overline{z_0}) = \overline{p(z_0)} = \overline{0} = 0$.  Thus, if $z_0 \notin \mathbb{R}$, then $\overline{z_0} \neq z_0$ is a distinct root. \qed
+
+\medskip\noindent\textbf{(b)}
+By the Fundamental Theorem of Algebra, $p$ factors completely over $\mathbb{C}$ as
+\[
+p(z) = a_n(z - w_1)(z - w_2)\cdots(z - w_n).
+\]
+Using part~(a), the roots are real ($r_1, \ldots, r_k$) and conjugate pairs ($\{w, \overline{w}\}$ where $\operatorname{Im}(w) \neq 0$).  We can group each conjugate pair into the quadratic
+\[
+(z - w)(z - \overline{w}) = z^2 - (w + \overline{w})z + w\overline{w} = z^2 - 2\operatorname{Re}(w)\,z + |w|^2.
+\]
+This quadratic has real coefficients.  Its discriminant is
+\[
+\Delta = 4\operatorname{Re}(w)^2 - 4|w|^2 = 4\bigl(\operatorname{Re}(w)^2 - \operatorname{Re}(w)^2 - \operatorname{Im}(w)^2\bigr) = -4\operatorname{Im}(w)^2 < 0,
+\]
+so it has no real roots and is therefore irreducible over $\mathbb{R}$. \qed
+
+\medskip\noindent\textbf{(c)}
+Since $z^5 - 1 = (z-1)(z^4+z^3+z^2+z+1)$, so $p(z) = z^4+z^3+z^2+z+1$ has roots equal to the primitive 5th-roots of unity $\omega^k = e^{2\pi ik/5}$ for $k = 1, 2, 3, 4$.  Since all four roots are non-real, they pair as conjugates: $\overline{\omega} = \omega^4$ and $\overline{\omega^2} = \omega^3$.  Therefore, using $\omega + \omega^4 = 2\operatorname{Re}(\omega) = 2\cos(2\pi/5)$ and $|\omega|^2 = 1$,
+\begin{align*}
+(z - \omega)(z - \omega^4) &= z^2 - (\omega + \omega^4)z + \omega^5 = z^2 - 2\cos(2\pi/5)\,z + 1, \\[4pt]
+(z - \omega^2)(z - \omega^3) &= z^2 - (\omega^2+\omega^3)z + \omega^5 = z^2 - 2\cos(4\pi/5)\,z + 1.
+\end{align*}
+
+By calculation, $\cos(2\pi/5) = (\sqrt{5}-1)/4$.  Since $\cos(4\pi/5) = 2\cos^2(2\pi/5)-1$, we get $\cos(4\pi/5) = -(\sqrt{5}+1)/4$.  Hence
+\[
+z^4+z^3+z^2+z+1 = \left(z^2 - \frac{\sqrt{5}-1}{2}\,z + 1\right)\!\left(z^2 + \frac{\sqrt{5}+1}{2}\,z + 1\right).
+\]
+is the product of irreducible quadratics. \qed
+
+\newpage
+%% ================================================================
+%%  PART (b)
+%% ================================================================
+
+\section*{Ex 1.5.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $c \in \mathbb{C}\setminus\{0\}$ and $a \in \mathbb{C}$. Show that the geometric series
+\[
+\sum_{n=0}^{\infty} ca^n
+\]
+converges to $\dfrac{c}{1-a}$ if $|a| < 1$, and diverges otherwise.
+\end{tcolorbox}
+
+\textit{Pf.} For $a = 1:$
+every partial sum is $s_N = c(N+1)$, so $|s_N| \to \infty$ and the series diverges.
+
+\medskip\noindent
+For $a \neq 1$,
+we use the telescoping trick.  Since $(1-a)(1+a+\cdots+a^N) = 1 - a^{N+1}$, the partial sum is
+\[
+s_N = c\sum_{n=0}^N a^n = c\cdot\frac{1 - a^{N+1}}{1 - a}.
+\]
+
+If $|a| < 1$, then $|a^{N+1}| = |a|^{N+1} \to 0$ as $N \to \infty$ (since $|a| < 1$ implies $|a|^k$ decreases, tending to $0$).  Therefore
+\[
+\lim_{N\to\infty} s_N = c\bigl(\frac{1 - 0}{1 - a}\bigr) = \frac{c}{1-a}.
+\]
+
+If $|a| > 1$, then $|a|^{N+1} \to \infty$, so $|a^{N+1}| \to \infty$ and $s_N$ does not converge.
+
+If $|a| = 1$ (including $a = 1$ as above), then $|ca^n| = |c||a|^n = |c| > 0$ for all $n$, so the terms $ca^n$ do not tend to zero.  But since the terms of any convergent series must tend to $0$, the series diverges. \qed
+
+\medskip\noindent\textit{Comparing with Ex~1.5.9}:
+Taking $c = 1$ gives $\sum_{n=0}^\infty a^n = 1/(1-a)$ for $|a| < 1$.  This is the power series for $1/(1-z)$ centered at $0$.  Intuitively, the partial sums need more and more terms to get close to $1/(1-z)$ on negative end.
+
+\newpage
+%% ================================================================
+\section*{Ex 1.5.8}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Prove Dini's Theorem: Suppose that $(h_n)$ is a sequence of continuous nonnegative functions on a compact set $K$ converging monotonically to zero on $K$. Then $h_n \searrow 0$ uniformly on $K$.
+\end{tcolorbox}
+
+\textit{Pf.} Fix $\varepsilon > 0$.  For each $x \in K$, the sequence $h_n(x)$ decreases to $0$, so there exists an index $k$ such that $h_{k}(x) < \varepsilon/2$.  Since $h_{k}$ is continuous, there is an open neighborhood $U_x$ of $x$ s.t.
+\[
+h_{k}(y) < \varepsilon \quad \text{for all } y \in U_x \cap K.
+\]
+(By continuity we are below $\varepsilon$ in a neighborhood.)
+
+\medskip
+The collection $\{U_x : x \in K\}$ is an open cover of $K$.  Since $K$ is compact, finitely many of them suffice:
+\[
+K \subseteq U_{x_1} \cup U_{x_2} \cup \cdots \cup U_{x_m}.
+\]
+Define $N = \max(N_{x_1}, N_{x_2}, \ldots, N_{x_m})$.
+
+\medskip
+Let $n \geq N$ and let $y \in K$ be arbitrary.  Then $y \in U_{x_j}$ for some $j$.  Since the sequence is monotonically decreasing and $n \geq N \geq N_{x_j}$, we have
+\[
+0 \leq h_n(y) \leq h_{N_{x_j}}(y) < \varepsilon.
+\]
+This holds for all $y \in K$ simultaneously, so $\sup_{y\in K} h_n(y) \leq \varepsilon$ whenever $n \geq N$.  I.e., $h_n \searrow 0$ uniformly on $K$. \qed
+
+\newpage
+%% ================================================================
+%%  PART (c)
+%% ================================================================
+
+\section*{Ex 2.1.8}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $A_r(z_0) = \{z \in \mathbb{C} : |z-z_0| > r > 0\}$ and suppose that
+\[
+g(z) = \sum_{j=1}^{\infty} \frac{b_j}{(z-z_0)^j}
+\]
+converges for all $z \in A_r(z_0)$ as in Ex~1.5.10. Show that both $g$ and $g'$ are holomorphic on $A_r(z_0)$ and that
+\[
+g'(z) = \sum_{j=1}^{\infty} \frac{-j\,b_j}{(z-z_0)^{j+1}} \quad \text{for all } z \in A_r(z_0).
+\]
+Show also that the coefficients $b_j$ appearing above are uniquely determined by $g$.
+\end{tcolorbox}
+
+\textit{Pf.} Let $w = 1/(z - z_0)$.  When $z \in A_r(z_0)$ (i.e.\ $|z - z_0| > r$), we get $|w| = 1/|z-z_0| < 1/r$. So as $z$ ranges over $A_r(z_0)$, the variable $w$ ranges over the disk $D_{1/r}(0) \setminus \{0\}$.
+
+In terms of $w$ we get the series as
+\[
+h(w) := g(z_0 + 1/w) = \sum_{j=1}^{\infty} b_j w^j, \qquad 0 < |w| < 1/r.
+\]
+Since $h(0) = 0$, this is actually a power series in $w$ centered at $0$ that converges on all of $D_{1/r}(0)$.  Indeed, by Ex~1.5.10 the radius of convergence of $\sum b_j w^j$ is at least $1/r$.
+
+\medskip
+By Theorem~2.4, $h$ is holomorphic on $D_{1/r}(0)$ and can be differentiated on each term:
+\[
+h'(w) = \sum_{j=1}^{\infty} j\,b_j\,w^{j-1}, \qquad |w| < 1/r.
+\]
+
+\medskip The function $\varphi(z) = 1/(z - z_0)$ is holomorphic on $A_r(z_0)$ with $\varphi'(z) = -1/(z-z_0)^2$.  Since $g(z) = h(\varphi(z))$, the chain rule gives
+\[
+g'(z) = h'(\varphi(z))\varphi'(z) = \left(\sum_{j=1}^{\infty} j\,b_j \frac{1}{(z-z_0)^{j-1}}\right) \frac{-1}{(z-z_0)^2} = \sum_{j=1}^{\infty} \frac{-j\,b_j}{(z-z_0)^{j+1}}.
+\]
+Since $h$ is holomorphic, and $\varphi$ is holomorphic, the composition $g = h \circ \varphi$ is holomorphic on $A_r(z_0)$.  The same argument applied to $g'$ (or equivalently $h'$) shows $g'$ is also holomorphic here. \qed
+
+\medskip
+By Corollary~2.7, the coefficients of the power series $h(w) = \sum_{j=0}^\infty b_j w^j$ are uniquely determined by $h$: specifically $b_j = h^{(j)}(0)/j!$.  Since $h$ is completely determined by $g$ (via $h(w) = g(z_0 + 1/w)$), the coefficients $b_j$ are uniquely determined by $g$. \qed
+
+\newpage
+%% ================================================================
+\section*{Ex 2.2.3}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $D$ is a domain and $f \in H(D)$. Show that if $f$ is real-valued in $D$, then $f$ is constant.
+\end{tcolorbox}
+
+\textit{Pf.} Let $f(z) = u(z) + iv(z)$ where $u = \operatorname{Re}(f)$ and $v = \operatorname{Im}(f)$ are real-valued.  The hypothesis that $f$ is real-valued means $v(z) = 0$ for all $z \in D$.  I.e., the partial derivatives become $v_x \equiv 0$ and $v_y \equiv 0$ on $D$.
+
+\medskip
+Since $f \in H(D)$, by Cauchy-Riemann on every point of $D$: $u_x = v_y = 0$ and $u_y = -v_x = 0$.
+So both first partial derivatives of $u$ zero out on $D$.
+
+\medskip
+Since $D$ is a domain (open and connected) and the continuous function $u$ has $u_x \equiv 0$ and $u_y \equiv 0$ throughout $D$, Proposition~1.7 (i.e. function with vanishing partials on an open connected set is constant) gives that $u$ is constant on $D$.
+
+Therefore $f = u + iv = u$ is constant on $D$. \qed
+
+\newpage
+%% ================================================================
+\section*{Ex 2.2.5}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $f : D \subset \mathbb{C} \to \mathbb{C}$ be a function of the form $f(z) = u(z) + iv(z)$, and let $F : D \subset \mathbb{R}^2 \to \mathbb{R}^2$ be the companion function $F(x,y) = (u(x,y), v(x,y))$. Let $z_0 = x_0 + iy_0 \in D$. Show that $f'(z_0)$ exists if and only if the Cauchy--Riemann equations hold at $z_0$ and $F$ is differentiable at $(x_0,y_0)$.
+\end{tcolorbox}
+
+\textit{Pf.} Suppose the Cauchy-Riemann holds at $z_0$, s.t. $u_x = v_y$ and $u_y = -v_x$ there.  Let $w = u_x(z_0) + iv_x(z_0) = f_x(z_0)$, and let $T : \mathbb{R}^2 \to \mathbb{R}^2$ be the linear map with matrix
+\[
+[T] = \begin{pmatrix} u_x(z_0) & -v_x(z_0) \\ v_x(z_0) & u_x(z_0) \end{pmatrix} = \begin{pmatrix} u_x(z_0) & u_y(z_0) \\ v_x(z_0) & v_y(z_0) \end{pmatrix},
+\]
+where the second equality uses the Cauchy-Riemann fo the Jacobian of $F$ at $(x_0, y_0)$.
+
+\medskip
+Let $z = h + ik$ with $h, k \in \mathbb{R}$.  Using the hint in the question and equation~(2.13), we get
+\begin{equation}\tag{$\star$}
+\|F(x_0+h,\, y_0+k) - F(x_0,y_0) - T(h,k)\| = |f(z_0 + z) - f(z_0) - wz|.
+\end{equation}
+
+\medskip\noindent$(\Longrightarrow)$\;
+\underline{If $f'(z_0)$ exists.}  As in class and Ex~2.2.1, we get $f'(z_0)$ by restricting $h$ in the difference quotient to real values (which gives $f_x(z_0) = f'(z_0)$), and to only imaginary values (which gives $-if_y(z_0) = f'(z_0)$).  Thus, we combine to get $f_x(z_0) = -if_y(z_0)$, which is the Cauchy-Riemann at $z_0$.
+
+The identity~$(\star)$ works with $w = f'(z_0)$.  Since $f'(z_0)$ exists, the right side of $(\star)$ satisfies
+\[
+|f(z_0+z) - f(z_0) - wz| = o(|z|) \quad \text{as } z \to 0.
+\]
+By $(\star)$, $\|F(x_0+h,y_0+k) - F(x_0,y_0) - T(h,k)\| = o(\|(h,k)\|)$, which is $F$ differentiable at $(x_0,y_0)$ with derivative $T$.
+
+\medskip\noindent$(\Longleftarrow)$\;
+\underline{If Cauchy-Riemann holds and $F$ is differentiable.}  Cauchy-Riemann ensures the matrix $[T]$ has the form above, and $F$ being differentiable at $(x_0,y_0)$ means the left side of $(\star)$ is $o(\|(h,k)\|)$.  By $(\star)$,
+\[
+|f(z_0+z) - f(z_0) - wz| = o(|z|) \quad \text{as } z \to 0.
+\]
+Dividing by $|z|$ and taking $z \to 0$ gives
+\[
+f'(z_0) = w = u_x(z_0) + iv_x(z_0) = f_x(z_0).
+\]
+Hence shown $f'(z_0)$ exists iff Cauchy-Riemann holds at $z_0$ and $F$ is differentiable at $(x_0,y_0)$. \qed
+\end{document}

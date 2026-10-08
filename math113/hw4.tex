@@ -1,0 +1,464 @@
+\documentclass[a4paper]{article}
+\input{head}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Hol}{\mathcal{H}}
+\renewcommand{\Re}{\operatorname{Re}}
+
+\begin{document}
+
+\hrule\medskip
+\begin{minipage}{0.295\textwidth}\raggedright\footnotesize
+Ali Azam
+\end{minipage}%
+\begin{minipage}{0.4\textwidth}\centering
+\large Math 113: Complex Analysis\\
+\normalsize HW \#4
+\end{minipage}%
+\begin{minipage}{0.295\textwidth}\raggedleft
+\today
+\end{minipage}
+\medskip\hrule\bigskip
+
+\section*{Ex 5.2.5}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Prove Corollary 5.18:\\[3pt]
+Suppose that $D$ is a domain with $a \in D$. Suppose also that $f \in \Hol(D \setminus \{a\})$.
+Show that $f$ has a pole of order $m$ at $a$ if and only if there is a
+$g \in \Hol(D)$ such that $g(a) \neq 0$ and
+\[
+f(z) = \frac{g(z)}{(z-a)^m} \quad \text{for all } z \in D \setminus \{a\}.
+\]
+\end{tcolorbox}
+
+\textit{Pf.} \textbf{($\Rightarrow$)} \underline{If $f$ has a pole of order $m$ at $a$.} By Definition 5.14,
+there exist constants $b_1, \dots, b_m \in \C$ with $b_m \neq 0$ s.t.
+\[
+r(z) = f(z) - \sum_{j=1}^{m} \frac{b_j}{(z-a)^j}
+\]
+has a removable singularity at $a$. We can improve $r$ to be holomorphic at $a$ also, then
+$r \in \Hol(D)$. For $z \in D \setminus \{a\}$, multiplying by $(z-a)^m$, we have
+\[
+(z-a)^m f(z) = (z-a)^m r(z) + \sum_{j=1}^{m} b_j (z-a)^{m-j}.
+\]
+Let $g : D \to \C$ be
+\[
+g(z) := (z-a)^m r(z) + b_m + b_{m-1}(z-a) + \cdots + b_1 (z-a)^{m-1}.
+\]
+Each sum is holomorphic on $D$, so $g \in \Hol(D)$. Also $g(a) = b_m \neq 0$.
+On $D \setminus \{a\}$ we have $g(z) = (z-a)^m f(z)$, so $f(z) = g(z)/(z-a)^m$.
+
+\medskip
+\textbf{($\Leftarrow$)} \underline{If $g \in \Hol(D)$, $g(a) \neq 0$, and $f(z) = g(z)/(z-a)^m$
+on $D \setminus \{a\}$.} By Theorem 4.12 (Holomorphic Functions are Analytic), $g$ has a
+Taylor expansion convergent in some $D_r(a) \subset D$:
+\begin{align*}
+g(z) &= \sum_{n=0}^{\infty} c_n (z-a)^n\\
+c_0 &= g(a) \neq 0.
+\end{align*}
+For $z \in D_r(a) \setminus \{a\}$ we then have
+\[
+f(z) = \frac{g(z)}{(z-a)^m}
+     = \sum_{n=0}^{\infty} c_n (z-a)^{n-m}
+     = \sum_{j=1}^{m} \frac{c_{m-j}}{(z-a)^j} + \sum_{n=m}^{\infty} c_n (z-a)^{n-m}.
+\]
+Let $b_j := c_{m-j}$ for $j \in \{1, \dots, m\}$. Then $b_m = c_0 = g(a) \neq 0$. Thus,
+\[
+r(z) := f(z) - \sum_{j=1}^{m} \frac{b_j}{(z-a)^j} = \sum_{k=0}^{\infty} c_{k+m}(z-a)^k.
+\]
+The RHS is the value of an analytic function on $D_r(a)$, so $r$ has a
+removable singularity at $a$. By Definition 5.14, $f$ has a pole of order $m$ at $a$. 
+
+\medskip
+Hence shown that $f$ has a pole of order $m$ at $a$ iff $\exists g \in \Hol(D)$, $g(a) \neq 0$, and $f(z) = g(z)/(z-a)^m$. \qed
+
+\newpage
+%======================================================================
+\section*{Ex 5.2.11}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f$ has an isolated singularity at $a$.
+\begin{itemize}
+\item[(a)] Suppose that $f$ has an essential singularity at $a$. Show that
+  $g(z) = \exp(f(z))$ has an essential singularity at $a$.
+\item[(b)] Suppose that $f$ has a pole at $a$. Show that $g(z) = \exp(f(z))$ has an
+  essential singularity at $a$. (Hint: consider Ex 5.2.9.)
+\item[(c)] Suppose that $g(z) = \exp(f(z))$ has a removable singularity at $a$. Show
+  that $f$ has a removable singularity at $a$.
+\end{itemize}
+\end{tcolorbox}
+
+\textit{Pf.} Since $\exp$ is entire, $g(z) = \exp(f(z))$ is holomorphic on the same modified
+neighborhood of $a$ as $f$. Therefore, $g$ has an isolated singularity at $a$, of
+exactly one type by Def~5.20: removable, pole, or essential. 
+
+We also know that $|g(z)| = e^{\Re f(z)}$.
+
+\medskip
+\textbf{(c)} If $g$ has a removable singularity at $a$. By Proposition 5.13(d),
+there exists $s, M > 0$ such that $|g(z)| \leq M$ for $z \in D'_s(a)$. Then
+$\Re f(z) \leq \ln M$ on $D'_s(a)$. We can consider the other two singularity types for $f$:
+\begin{itemize}
+\item If $f$ has a pole at $a$, then by Ex 5.2.9, $\sup_{z \in D'_s(a)} \Re f(z) = \infty$,
+which contradicts $\Re f \leq \ln M$.
+\item If $f$ has an essential singularity at $a$, then by
+Theorem 5.21 (Casorati--Weierstrass), $f(D'_s(a))$ is dense in $\C$, so $\Re f$ takes
+arbitrarily large positive values, which again contardicts $\Re f \leq \ln M$.
+\end{itemize}
+Therefore $f$ has to be a removable singularity at $a$. \qed
+
+\medskip
+\textbf{(a)} If $f$ has an essential singularity at $a$. We can consider the other two singularity types for $g$:
+\begin{itemize}
+\item If $g$ has a removable singularity at $a$, then part~(c) implies that $f$ has a
+removable singularity at $a$, which contradicts our assumption.
+\item If $g$ has a pole at $a$, then by Proposition 5.19, $|g(z)| \to \infty$, i.e.\
+$\Re f(z) \to \infty$. So $\forall M > 0$, $\exists \delta > 0$ s.t.
+$\Re f(z) > M$ on $D'_\delta(a)$. But then $f(D'_\delta(a)) \subset \{w : \Re w > M\}$,
+and the complement contains an open disk, i.e. not dense. This contradicts
+Theorem 5.21 (C-W) on $f$.
+\end{itemize}
+Therefore $g$ has to be an essential singularity at $a$. \qed
+
+\medskip
+\textbf{(b)} If $f$ has a pole at $a$. We can consider the other two singularity types for $g$:
+\begin{itemize}
+\item If $g$ has a removable singularity at $a$, then part~(c) gives $f$ is removable, which is a contradiction.
+\item If $g$ has a pole at $a$, then $|g(z)| \to \infty$, so $\Re f(z) \to \infty$. In
+particular $\Re f$ is bounded below on a punctured neighborhood of $a$. But Ex 5.2.9
+gives $\sup_{z \in D'_s(a)} \big(-\Re f(z)\big) = \infty$, i.e.\ $\Re f$ is unbounded below on every modified neighborhood of $a$, which is a contradiction again.
+\end{itemize}
+Therefore $g$ has to be an essential singularity at $a$. \qed
+
+\newpage
+%======================================================================
+\section*{Ex 5.2.12}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f \in \Hol(D)$. Let $\{a_1, \dots, a_n\} \subset D$ be zeros of $f$ such
+that $a_k$ has multiplicity $m_k$. By considering the singularities of
+$g(z) = f(z)(z-a_1)^{-m_1} \cdots (z-a_n)^{-m_n}$, show that
+\[
+f(z) = (z - a_1)^{m_1} \cdots (z - a_n)^{m_n} g(z) \quad \text{for all } z \in D
+\]
+with $g \in \Hol(D)$ and such that $g(a_j) \neq 0$ for $1 \leq j \leq n$. If
+$Z(f) = \{a_1, \dots, a_n\}$ are all the zeros of $f$ in $D$, conclude that $g$ does
+not vanish on $D$ as asserted in part (b) of Ex 5.1.5.
+\end{tcolorbox}
+
+\textit{Pf.} Let $g : D \to \C$ be
+\[
+g(z) := \frac{f(z)}{(z-a_1)^{m_1} \cdots (z-a_n)^{m_n}}, \quad z \in D \setminus \{a_1, \dots, a_n\}.
+\]
+By Prop~2.2, this is holomorphic on $D \setminus \{a_1, \dots, a_n\}$ as the quotient of holomorphic
+functions with denominator that does not approach zero. So $g$ has isolated
+singularities for all $a_k$.
+
+For a given $k$, by Lemm~5.4, since $f$ has a zero of order $m_k$ at $a_k$,
+$\exists h_k \in \Hol(D)$ with $h_k(a_k) \neq 0$ s.t.
+\[
+f(z) = (z - a_k)^{m_k} h_k(z)
+\]
+for $z \in D$. We can substitute this into $g$ to get,
+\[
+g(z) = \frac{(z-a_k)^{m_k} h_k(z)}{(z-a_k)^{m_k} \prod_{j \neq k} (z-a_j)^{m_j}}
+     = \frac{h_k(z)}{\prod_{j \neq k}(z - a_j)^{m_j}}
+\]
+for $z \in D \setminus \{a_1, \dots, a_n\}$. The RHS is holomorphic at $a_k$ (the points $a_j$ with $j \neq k$ are
+distinct from $a_k$, so the denominator does not zero out at $a_k$), and the value at
+$a_k$ is
+\[
+\frac{h_k(a_k)}{\prod_{j \neq k}(a_k - a_j)^{m_j}} \neq 0,
+\]
+since $h_k(a_k) \neq 0$ and $a_k \neq a_j$ for $j \neq k$. Hence $a_k$ is a removable
+singularity of $g$, and the extension (still $g$) is holomorphic at $a_k$ with
+$g(a_k) \neq 0$.
+
+Since this holds for every $k$, $g$ extends to an element of $\Hol(D)$ with
+$g(a_j) \neq 0$ for all $j$. We have,
+\[
+f(z) = (z - a_1)^{m_1} \cdots (z - a_n)^{m_n} g(z)
+\]
+holds on $D \setminus \{a_1, \dots, a_n\}$, and both sides are holomorphic on $D$, so
+they equal on a set with limit points in $D$. By Corollary~5.7
+they equal on all of $D$.
+
+\medskip
+Lert $Z(f) = \{a_1, \dots, a_n\}$ be the zeros of $f$ in $D$. If $g(z_0) = 0$
+for some $z_0 \in D$, then $z_0 \notin \{a_1, \dots, a_n\}$ since $g(a_j) \neq 0$ for
+every $j$. Then,
+\[
+f(z_0) = (z_0 - a_1)^{m_1} \cdots (z_0 - a_n)^{m_n} g(z_0) = 0,
+\]
+so $z_0 \in Z(f) = \{a_1, \dots, a_n\}$, which is a contradiction. Hence $g$ does not zero out (i.e. vanish) on
+$D$. \qed
+
+\newpage
+%======================================================================
+\section*{Ex 5.3.6}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f$ is entire. Show that $f$ is a polynomial of at most degree $n$
+($n \geq 1$) if and only if there are non-negative constants $A$ and $B$ such that
+\[
+|f(z)| \leq A|z|^n + B \quad \text{for all } z \in \C.
+\]
+\end{tcolorbox}
+
+\textit{Pf.} \textbf{($\Rightarrow$)} \underline{If $f(z) = c_0 + c_1 z + \cdots + c_n z^n$.}
+$\forall z \in \C$ and $0 \leq k \leq n$, we have $|z|^k \leq 1 + |z|^n$ (which has the parts split as $|z| \leq 1$ which gives
+$|z|^k \leq 1$, and $|z| \geq 1$ which gives $|z|^k \leq |z|^n$). Therefore,
+\[
+|f(z)| \leq \sum_{k=0}^n |c_k|\, |z|^k \leq \left(\sum_{k=0}^n |c_k|\right)(1 + |z|^n).
+\]
+Take $A = B = \sum_{k=0}^n |c_k| \geq 0$ which gives $|f(z)| \leq A|z|^n + B$.
+
+\medskip
+\textbf{($\Leftarrow$)} \underline{If $|f(z)| \leq A|z|^n + B$ for all $z \in \C$.} Since $f$
+is entire, by Theorem 4.12 (Holomorphic Functions are Analytic) it has a Maclaurin
+series,
+\begin{align*}
+f(z) &= \sum_{k=0}^\infty a_k z^k\\
+a_k &= \frac{f^{(k)}(0)}{k!}
+\end{align*}
+which converges on $\C$.
+
+\medskip
+$\forall R > 0$, from the bound we have $|f(z)| \leq AR^n + B$ on $\overline{D_R(0)}$. By
+Prop~5.25 (Cauchy's Estimates), we have,
+\[
+|a_k| = \frac{|f^{(k)}(0)|}{k!} \leq \frac{AR^n + B}{R^k} = AR^{n-k} + BR^{-k}
+\]
+Also, for $k > n$, both $AR^{n-k}$ and $BR^{-k}$ tend to $0$ as $R$ tends to $\infty$, so $a_k = 0$
+$\forall k > n$. Therefore,
+\[
+f(z) = a_0 + a_1 z + \cdots + a_n z^n
+\]
+is a polynomial of degree at most $n$.
+
+\medskip
+Hence shown that $f$ has degree at most $n$ iff we have $|f(z)| \leq A|z|^n + B, \forall z \in \mathbb{C}$ where $A$ and $B$ are nonnegative constants. \qed
+
+\newpage
+%======================================================================
+\section*{Ex 5.3.9}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f$ and $g$ are entire and such that $|f(z)| \leq |g(z)|$ for all
+$z \in \C$. What can be said about $f$ and $g$? (Hint: consider $h = f/g$.) In
+particular, what can you conclude if $|f(z)| \leq A|z|^n$ for all $z$?
+(Compare with Ex 5.3.6.)
+\end{tcolorbox}
+
+\textit{Pf.} We claim that $f = cg$ for some constant $c \in \C$ with $|c| \leq 1$.
+
+\medskip
+In the trivial case, if $g \equiv 0$ then $|f| \leq 0$ forces $f \equiv 0$, and the claim holds with $c = 0$.
+
+\medskip
+Otherwise, $g$ is nonconstant entire, and by Thm~5.6 its zero set $Z(g)$ is isolated
+in $\C$. Let
+\[
+h(z) := \frac{f(z)}{g(z)}
+\]
+for $z \in \C \setminus Z(g)$. Then by Prop~2.2, $h \in \Hol(\C \setminus Z(g))$ and $|h(z)| \leq 1$.
+$\forall a \in Z(g)$ we have an isolated singularity of $h$ at which $h$ is bounded, so by
+Prop~5.13(d) it is removable. By extending $h$ for every $a \in Z(g)$, we have an entire function which is restricted by $1$ on $\mathbb{C}$. 
+
+\medskip
+Then by Thm~5.26 (Liouville), $h \equiv c$ for some constant with $|c| \leq 1$. Therefore,
+$f(z) = c g(z)$, $\forall z \in \C$.
+
+\medskip
+For the case where $|f(z)| \leq A|z|^n$, we can still use the claim to $f$ and $g(z) = A z^n$ s.t. $|f(z)| \leq A|z|^n = |g(z)|$, so $f = c A z^n$
+for some $|c| \leq 1$. Let $\alpha := cA$, then we get $f(z) = \alpha z^n$, with $|\alpha| \leq A$.
+
+\medskip
+This is a stronger statement than Ex 5.3.6, which only gives that $f$ is a polynomial of
+degree at most $n$. Here $f$ must be the single monomial $\alpha z^n$.
+
+\newpage
+%======================================================================
+\section*{Ex 5.3.12}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f$ is entire and that the range of $f$ is disjoint from the ray
+$(-\infty, 0]$. Show that $f$ is constant. (Hint: let $s$ be the branch of
+$z^{1/2}$ from Ex 5.3.11, and consider $g = s \circ f$.)
+\end{tcolorbox}
+
+\textit{Pf.} Using the solution from Ex~5.3.11, the function $s(z) = \exp\big(\tfrac{1}{2} \mathrm{Log}(z)\big)$ is an
+analytic branch of $z^{1/2}$ on $D^* = \C \setminus (-\infty, 0]$, and its range lies in $H = \{w \in \C : \Re(w) > 0\}$.
+
+\medskip
+Since the range of $f$ is disjoint from $(-\infty, 0]$, we have $f(\C) \subset D^*$.
+
+Let $g := s \circ f$. By Prop~2.2 (Chain Rule), $g$ is entire, and its
+range satisfies $g(\C) \subset s(D^*) \subset H$, so $\Re g(z) > 0$, $\forall z \in \C$.
+
+\medskip
+Now consider $\exp(-g)$, which is a composition of entire functions and by Prop~2.2 is also entire. Then $\forall z \in \C$ we have,
+\[
+|\exp(-g(z))| = e^{-\Re g(z)} < e^0 = 1.
+\]
+So $\exp(-g)$ is bounded entire, therefore constant by Thm~5.26 (Liouville).
+
+\medskip
+Therefore we have $g$ is also constant. We can write $\exp(-g(z)) \equiv c$, the function $g$ takes values
+in the discrete set $\{w \in \C : e^{-w} = c\}$, i.e. $2\pi i \Z$.
+
+Since $g$ is continuous and $\C$ is connected, $g$ must be constant.
+
+\medskip
+We have $s$ is a branch of $z^{1/2}$, so $s(w)^2 = w$ on $D^*$. For all values of $z$ we have,
+\[
+f(z) = s(f(z))^2 = g(z)^2 = \text{constant}.
+\]
+Therefore, $f$ is constant. \qed
+
+\newpage
+%======================================================================
+\section*{Ex 5.4.1}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $D$ be a domain. Show that $(f_n)$ converges to $f$ uniformly on compact subsets
+of $D$ if and only if $(f_n)$ converges uniformly to $f$ on every closed disk
+$\overline{D_r(a)}$ contained in $D$.
+\end{tcolorbox}
+
+\textit{Pf.} \textbf{($\Rightarrow$)} As in the proof for Thm~5.32, we have a closed disk $\overline{D_r(a)} \subset D$ is a compact subset of $D$. So uniform convergence on compact subsets of $D$
+immediately gives uniform convergence on $\overline{D_r(a)}$.
+
+\medskip
+\textbf{($\Leftarrow$)} \underline{If $f_n$ converges to $f$ uniformly on every closed disk
+$\overline{D_r(a)} \subset D$.} Let $K \subset D$ be compact. For each $a \in K$ (because $D$ is open and $a \in D$), we have $r_a > 0$ s.t.
+$\overline{D_{r_a}(a)} \subset D$. 
+
+\medskip
+The open disks $\{D_{r_a}(a) : a \in K\}$ form a cover of $K$ which is also open. By compactness of $K$, finitely many cover $K$. I.e.
+$\exists a_1, \dots, a_p \in K$ s.t.
+\[
+K \subseteq \bigcup_{i=1}^p D_{r_{a_i}}(a_i) \subseteq \bigcup_{i=1}^p \overline{D_{r_{a_i}}(a_i)} \subset D.
+\]
+Let $\varepsilon > 0$. Take that for each $i$, $\exists N_i \in \N$ s.t. $n \geq N_i$, which implies $|f_n(z) - f(z)| < \varepsilon$ for all $z \in \overline{D_{r_{a_i}}(a_i)}$.
+
+Let $N := \max(N_1, \dots, N_p)$. For $n \geq N$ and $\forall z \in K$, $z$ lies in some
+$\overline{D_{r_{a_i}}(a_i)}$, which implies $|f_n(z) - f(z)| < \varepsilon$.
+
+Therefore, we have $f_n$ converges to $f$ uniformly on $K$. 
+
+\medskip
+Hence shown that $(f_n)$ converges to $f$ uniformly on compact subsets of $D$ iff $(f_n)$ converges uniformly to $f$ on every closed disk $\overline{D_{r}(a)}$ contained in D. \qed
+
+\newpage
+%======================================================================
+\section*{Ex 5.4.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Show that the Taylor series for $f \in \Hol(D_R(a))$ about $a$ converges uniformly to
+$f$ on compact subsets of $D_R(a)$.
+\end{tcolorbox}
+
+\textit{Pf.} From Thm~4.12 (Holomorphic Functions are Analytic), $f$ has a Taylor expansion,
+\begin{align*}
+f(z) &= \sum_{n=0}^{\infty} c_n (z-a)^n \\
+c_n &= \frac{f^{(n)}(a)}{n!},
+\end{align*}
+which converges pointwise on $D_R(a)$.
+
+\medskip
+Let $K \subset D_R(a)$ be compact. The continuous function $z \mapsto |z-a|$ is
+maximum on $K$, and the maximum is strictly less than $R$ (since $K \subset D_R(a)$).
+
+Take $\rho$ and $s$ with $\max_{z \in K} |z-a| \leq \rho < s < R$, s.t.
+$K \subseteq \overline{D_\rho(a)} \subset D_s(a) \subset D_R(a)$.
+
+Since the Taylor series converges at every point of $D_s(a)$ (as it converges on the larger
+$D_R(a)$), it converges at any $z$ with $|z-a| = s$, so $|c_n| s^n \to 0$.
+Therefore, $\exists M > 0$ with $|c_n| s^n \leq M$, $\forall n$.
+
+\medskip
+For $z \in \overline{D_\rho(a)}$, we have
+\[
+|c_n (z-a)^n| \leq |c_n|\rho^n = (|c_n| s^n)\left(\frac{\rho}{s}\right)^n \leq M\left(\frac{\rho}{s}\right)^n
+\]
+Since $0 < \rho/s < 1$, $\sum_{n=0}^\infty M (\rho/s)^n$ is a geometric series which is convergent. By the Weierstrass M-test, $\sum c_n (z-a)^n$ converges uniformly on
+$\overline{D_\rho(a)}$, and hence on $K$.
+
+\medskip
+Since $K$ was an arbitrary compact subset of $D_R(a)$, we have that the Taylor series converges
+uniformly to $f$ on compact subsets of $D_R(a)$. \qed
+
+\newpage
+%======================================================================
+\section*{Ex 5.4.5}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $(f_n)$ be a sequence of holomorphic functions on an open set $D$ converging
+pointwise to a function $f$ on $D$. Suppose that each point $a \in D$ has a
+neighborhood $D_r(a)$ so that $(f_n)$ is uniformly bounded on $D_r(a)$. Show that
+$(f_n)$ converges to $f$ uniformly on compact subsets of $D$ and hence that $f$ is
+holomorphic on $D$. (Hint: show that $(f_n)$ is uniformly Cauchy. You may need the
+Dominated Convergence Theorem in the form of Ex 5.4.4.)
+\end{tcolorbox}
+
+\textit{Pf.} First, show that every $a \in D$ has a closed disk $\overline{D_{\rho/2}(a)} \subset D$
+on which $(f_n)$ is uniformly Cauchy.
+
+\medskip
+Take a fixed $a \in D$. Assume there are $r > 0$ and $M > 0$ s.t.
+$D_r(a) \subset D$ and $|f_n(z)| \leq M$, $\forall z \in D_r(a)$ and $\forall n \in \N$. Take
+any $0 < \rho < r$ and let $\gamma(t) = a + \rho e^{it}$, $t \in [0, 2\pi]$.
+
+Since $D_r(a)$ is convex, by Lemm~4.4 we have $\gamma^* \subset D_r(a)$, $\mathrm{Ind}_\gamma(z) = 1$ for
+$z \in D_\rho(a)$. With Thm~4.10 (Cauchy Integral Formula) and $f_n \in \Hol(D_r(a))$, we have $\forall z \in D_\rho(a)$,
+\[
+f_n(z) = \frac{1}{2\pi i} \int_\gamma \frac{f_n(w)}{w - z}\, dw.
+\]
+
+\medskip
+Now restrict to $K := \overline{D_{\rho/2}(a)}$. For $z \in K$ and $w \in \gamma^*$,
+$|w - z| \geq \rho - |z - a| \geq \rho/2$. Hence for any $m, n \in \N$ and $z \in K$,
+\[
+|f_n(z) - f_m(z)|
+= \left|\frac{1}{2\pi i}\int_\gamma \frac{f_n(w) - f_m(w)}{w-z}\, dw\right|
+\leq \frac{1}{2\pi} \frac{2}{\rho}\int_\gamma |f_n(w) - f_m(w)|\,|dw|.
+\]
+I.e., RHS is independent of $z \in K$.
+
+\medskip
+On $\gamma^*$, $|f_n - f| \leq |f_n| + |f| \leq 2M$ (the bound $|f| \leq M$ follows from
+$|f_n| \leq M$ and pointwise convergence), and $f_n - f$ tends to $0$ pointwise on $\gamma^*$.
+From Ex~5.4.4 (Dominated Convergence Theorem),
+\[
+\int_\gamma |f_n(w) - f(w)|\, |dw| \to 0 \quad \text{as } n \to \infty.
+\]
+Therefore using the triangle inequality,
+\[
+\int_\gamma |f_n - f_m|\, |dw|
+\leq \int_\gamma |f_n - f|\, |dw| + \int_\gamma |f - f_m|\, |dw| \to 0
+\]
+as $m, n$ tend to $\infty$. So $(f_n)$ is uniformly Cauchy on $K = \overline{D_{\rho/2}(a)}$.
+
+\medskip
+Now, uniform Cauchy on $K$ implies uniform convergence on $K$ to some continuous limit. We use our assumption of pointwise convergence to take the limit as $f$, so $f_n$ tends to $f$ uniformly on $K$.
+
+We have shown $\forall a \in D$ has an open disk $D_{\rho_a/2}(a)$ on whose closure $f_n$ tends to $f$ uniformly. 
+
+\medskip
+Let $L \subset D$ be compact. Then the disks $\{D_{\rho_a/2}(a) : a \in L\}$ also form
+a cover of $L$ which is open. Then by compactness, we have that finitely many cover $L$, i.e.
+\[
+L \subseteq \bigcup_i \overline{D_{\rho_{a_i}/2}(a_i)}
+\]
+Uniform convergence on each piece gives uniform convergence on $L$ as a whole.
+
+\medskip
+Since $f_n$ tends to $f$ uniformly on compact subsets of $D$ and each $f_n \in \Hol(D)$, by
+Thm~5.32, we have $f \in \Hol(D)$. \qed
+\end{document}

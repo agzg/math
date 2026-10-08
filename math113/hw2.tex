@@ -1,0 +1,132 @@
+\documentclass[a4paper]{article}
+\input{head}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\begin{document}
+
+\hrule\medskip
+\begin{minipage}{0.295\textwidth}\raggedright\footnotesize
+Ali Azam
+\end{minipage}%
+\begin{minipage}{0.4\textwidth}\centering
+\large Math 113: Complex Analysis\\
+\normalsize Assignment 2
+\end{minipage}%
+\begin{minipage}{0.295\textwidth}\raggedleft
+\today
+\end{minipage}
+\medskip\hrule\bigskip
+
+\section*{EP-1}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $D$ is a domain and that $0 \notin D$. Show that there is a branch of $\log z$ in $D$ if and only if $1/z$ has an antiderivative on $D$. 
+
+\medskip
+Hint: if $f'(z) = 1/z$ for all $z \in D$, consider the function $h(z) = z / \exp(f(z))$ and note that $\exp(z) = a$ has infinitely many solutions if $a \neq 0$. (Not to be turned in: observe that this result implies that $f(z) = 1/z$ does not have an antiderivative on $\mathbb{C} \setminus \{0\}$.)
+\end{tcolorbox}
+
+\textit{Pf.} $(\Longrightarrow)$ \underline{If $L$ is a branch of $\log z$ on $D$.} By Definition~1.24, $L : D \to \mathbb{C}$ is continuous, and $\forall z\in D$: $L(z) \in \log(z)$. I.e., $\exp(L(z)) = z$ for all $z \in D$.
+
+\medskip
+We can show that $L$ is holomorphic with $L'(z) = 1/z$. Fix $z_0 \in D$. Since the differential of $\exp$ never vanishes ($\exp' = \exp$), and $\exp(L(z_0)) = z_0 \neq 0$, the inverse function theorem gives that $L$ is holomorphic near $z_0$. Differentiating $\exp(L(z)) = z$ by the chain rule gives
+\[
+\exp(L(z)) L'(z) = 1 \quad \text{i.e.} \quad L'(z) = \frac{1}{\exp(L(z))} = \frac{1}{z}.
+\]
+Therefore $L$ is an antiderivative of $1/z$ on $D$.
+
+\medskip
+
+$(\Longleftarrow)$ \underline{If $f \in H(D)$ satisfies $f'(z) = 1/z$ for all $z \in D$.} Using the hint, we let
+\[
+h(z) = \frac{z}{\exp(f(z))}.
+\]
+Since $\exp(f(z)) \neq 0$ for all $z$, the function $h$ is holomorphic on $D$. Differentiate with the quotient rule:
+\[
+h'(z) = \frac{\exp(f(z)) - z \exp(f(z)) f'(z)}{\exp(f(z))^2} = \frac{\exp(f(z)) - z \exp(f(z)) \frac{1}{z}}{\exp(f(z))^2} = \frac{\exp(f(z)) - \exp(f(z))}{\exp(f(z))^2} = 0.
+\]
+Since $D$ is a domain (open and connected set), $h$ is constant: $h(z) = c$ for some $c \in \mathbb{C}$. Thus $\forall z \in D: z = c \exp(f(z))$. Since $0 \notin D$, we have $c \neq 0$.
+
+\medskip
+By Proposition~1.22, since $c \neq 0$, the equation $\exp(w) = c$ has solutions (infinitely many, differing by multiples of $2\pi i$). Fix any $a \in \mathbb{C}$ with $\exp(a) = c$. Then $\forall z \in D: z = \exp(a) \exp(f(z)) = \exp(f(z) + a)$. This means $f(z) + a \in \log(z)$ for every $z \in D$. 
+
+\medskip
+Define $L(z) = f(z) + a$. Then $L$ is holomorphic (thus continuous) and $L(z) \in \log(z)$ for all $z \in D$, so $L$ is a branch of $\log z$ on $D$ by Definition~1.24. 
+
+\medskip
+Thus shown that there is a branch of $\log z$ in D iff $1/z$ has an antiderivative in $D$.\qed
+
+\newpage
+
+\section*{Ex 3.2.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+\textbf{Exercise 3.2.2.} Let $\gamma : [0,1] \to \mathbb{C}$ be a Jordan arc. Show that the set $\gamma^*$ has no interior. (In particular, Jordan arcs are far from ``space-filling''.)
+\end{tcolorbox}
+
+
+\textit{Pf.} From Definition~3.3, a Jordan arc is an injective curve and $\gamma^*= \gamma([0,1])$ denotes its image. 
+
+\medskip
+Since $\gamma$ is a continuous bijection from the compact set $[0,1]$ onto $\gamma^*$, $\gamma$ is a homeomorphism from $[0,1]$ to $\gamma^*$.
+
+\medskip
+Suppose, for contradiction, that $\gamma^*$ has nonempty interior. Then there exists an open disk $D_r(w) \subseteq \gamma^*$. Since $D_r(w)$ contains more than two points, we can choose $w' \in D_r(w)$ with $p := \gamma^{-1}(w') \in (0,1)$. Pick $r' > 0$ so that $D_{r'}(w') \subseteq D_r(w) \subseteq \gamma^*$.
+
+\medskip
+Since $\gamma$ is a homeomorphism, removing $w'$ from $\gamma^*$ gives
+\[
+\gamma^* \setminus \{w'\} \;\cong\; [0,1] \setminus \{p\} \;=\; [0,p) \cup (p,1],
+\]
+which is disconnected. So $\gamma^* \setminus \{w'\}$ has exactly two connected components: $\gamma([0,p))$ and $\gamma((p,1])$.
+
+\medskip
+On the other hand, the modified disk $D_{r'}(w') \setminus \{w'\}$ is connected (it is path-connected: any two points can be joined by an arc in the modified disk). Since it is a connected subset of $\gamma^* \setminus \{w'\}$, it must lie entirely in one component, say $\gamma([0,p))$.
+
+\medskip
+But $\gamma$ is continuous and $\gamma(p) = w'$, so for sufficiently small $\varepsilon > 0$ we have $|\gamma(p + \varepsilon) - w'| < r'$, meaning $\gamma(p + \varepsilon) \in D_{r'}(w')$. Since $\gamma$ is injective and $p + \varepsilon \neq p$, we have $\gamma(p + \varepsilon) \neq w'$, so $\gamma(p + \varepsilon) \in D_{r'}(w') \setminus \{w'\} \subseteq \gamma([0,p))$. But $p + \varepsilon \in (p,1]$ means $\gamma(p + \varepsilon) \in \gamma((p,1])$, which is disjoint from $\gamma([0,p))$ by injectivity, which is a contradiction.
+
+Therefore $\gamma^*$ has no interior. \qed
+
+\newpage
+
+\section*{Ex 3.2.5}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $S$ be a nonempty subset of the plane. Let $\operatorname{Conv}(S)$ be the collection of sums of the form $\sum_{k=1}^{n} t_k z_k$ such that $n \in \mathbb{N}$, each $t_k \geq 0$, each $z_k \in S$, and $\sum_{k=1}^{n} t_k = 1$. Show that $\operatorname{Conv}(S)$ is the convex hull of $S$; that is, show that $\operatorname{Conv}(S)$ is the smallest convex subset of the plane containing $S$.
+\end{tcolorbox}
+
+\textit{Pf.} To show Conv(S) is the convex hull of S, we show that:
+\begin{enumerate}
+\item \underline{$S \subseteq \operatorname{Conv}(S)$}:
+$\forall z \in S$, take $n = 1$ and $t_1 = 1$. Then $z = (1)(z) \in \operatorname{Conv}(S)$.
+
+\item \underline{$\operatorname{Conv}(S)$ is convex}: 
+
+Take $a, b \in \operatorname{Conv}(S)$ and $\lambda \in [0,1]$. Let $a = \sum_{k=1}^{n} t_k z_k$ and $b = \sum_{j=1}^{m} s_j w_j$ where each $t_k, s_j \geq 0$, each $z_k, w_j \in S$, and $\sum t_k = \sum s_j = 1$ (as in the question). Then
+\[
+\lambda a + (1 - \lambda) b = \sum_{k=1}^{n} (\lambda t_k) z_k + \sum_{j=1}^{m} ((1-\lambda) s_j) w_j.
+\]
+Every coefficient $\lambda t_k \geq 0$ and $(1-\lambda) s_j \geq 0$, and each $z_k, w_j \in S$. Thus the coefficients sum to
+\[
+\lambda \sum_{k=1}^{n} t_k + (1 - \lambda) \sum_{j=1}^{m} s_j = \lambda + (1 - \lambda) = 1.
+\]
+Hence $\lambda a + (1-\lambda) b \in \operatorname{Conv}(S)$, and $\operatorname{Conv}(S)$ is convex.
+
+\item \underline{$\operatorname{Conv}(S)$ is contained in every convex set that contains $S$}:
+
+Let $C$ be any convex set with $S \subseteq C$. We show by induction on $n$ that every element $\sum_{k=1}^{n} t_k z_k \in \operatorname{Conv}(S)$ belongs to $C$.
+
+For the base case, take $n = 1$: we have $t_1 = 1$ and $z_1 \in S \subseteq C$, so the sum $z_1 \in C$.
+
+Then consider the result for convex combinations of $n - 1$ points of $S$, and $\sum_{k=1}^{n} t_k z_k$ with each $t_k \geq 0$, each $z_k \in S$, and $\sum t_k = 1$. If $t_n = 1$, then all other $t_k = 0$ and the sum equals $z_n \in C$. Otherwise $t_n < 1$, then
+\[
+\sum_{k=1}^{n} t_k z_k = (1 - t_n) \underbrace{\sum_{k=1}^{n-1} \frac{t_k}{1 - t_n}\, z_k}_{=:\, w} + \; t_n \, z_n.
+\]
+Since $\sum_{k=1}^{n-1} \frac{t_k}{1 - t_n} = \frac{1 - t_n}{1 - t_n} = 1$ and each $\frac{t_k}{1 - t_n} \geq 0$, the point $w$ is a convex combination of $n-1$ points of $S$. 
+
+By the inductive hypothesis, $w \in C$. Since $z_n \in S \subseteq C$ and $C$ is convex, we get $(1 - t_n) w + t_n z_n \in C$. By induction, $\operatorname{Conv}(S) \subseteq C$.
+
+Since $C$ was an arbitrary convex set containing $S$, $\operatorname{Conv}(S)$ is the smallest convex set containing $S$, i.e., the convex hull of $S$. \qed
+\end{enumerate}
+\end{document}

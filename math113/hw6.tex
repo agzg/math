@@ -1,0 +1,216 @@
+\documentclass[a4paper]{article}
+\input{head}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\begin{document}
+
+\hrule\medskip
+\begin{minipage}{0.295\textwidth}\raggedright\footnotesize
+Ali Azam
+\end{minipage}%
+\begin{minipage}{0.4\textwidth}\centering
+\large Math 113: Complex Analysis\\
+\normalsize HW \#6
+\end{minipage}%
+\begin{minipage}{0.295\textwidth}\raggedleft
+\today
+\end{minipage}
+\medskip\hrule\bigskip
+
+\section*{Ex 6.2.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $D$ is simply connected and that $f\in H(D)$ has no zeros in $D$. Show that there is an analytic branch of $\log(f(z))$ in $D$; that is, show there is a $g\in H(D)$ so that $f(z)=\exp(g(z))$ for all $z\in D$. (Hint: $f'/f\in H(D)$ and must have an anti-derivative.)
+\end{tcolorbox}
+
+\textit{Pf.} From the hint, since $f$ is nonvanishing on $D$, we have from Prop~2.2 (Quotient Rule) that the logarithmic derivative $f'/f$ is holomorphic on $D$.
+
+\medskip
+Since $D$ is simply connected, Thm~6.17 (Cauchy for Simply Connected Domains) gives that every function in $H(D)$ has an antiderivative on $D$. Applying this to $f'/f\in H(D)$, $\exists F\in H(D)$ s.t.
+\[
+  F'(z)=\frac{f'(z)}{f(z)}
+\]
+$\forall z\in D$. Let $h(z):=f(z)\exp(-F(z))$ on $D$. Both factors are holomorphic, from Prop~2.16 where $\exp\in H(\mathbb{C})$ and Prop~2.2 (Chain Rule). Then $h\in H(D)$. By the product and chain rules, we have,
+\begin{align*}
+  h'(z) &=f'(z)\exp(-F(z))-f(z)F'(z)\exp(-F(z)) \\
+  &=\exp(-F(z))\Bigl(f'(z)-f(z)\tfrac{f'(z)}{f(z)}\Bigr)\\
+  &=0
+\end{align*}
+$\forall z\in D$. Since $D$ is a domain and $h'\equiv 0$, we have from Ex~2.2.2 that this forces $h$ to be constant on $D$, say $h\equiv c$. Because $f$ never vanishes and $\exp$ is nonzero everywhere, $c\ne 0$. 
+
+\medskip
+We have that the complex exponential is surjective onto $\mathbb{C}\setminus\{0\}$ (from Prop~2.16  and Def~1.24), so we can take $\alpha\in\mathbb{C}$ with $e^{\alpha}=c$.
+
+\medskip
+Let $g(z):=F(z)+\alpha$. Then $g\in H(D)$, and $\forall z\in D$, we have,
+\begin{align*}
+  f(z) &=h(z)\exp(F(z)) \\
+  &=c\,\exp(F(z)) \\
+  &=\exp(\alpha)\exp(F(z)) \\
+  &=\exp(F(z)+\alpha) \\
+  &=\exp(g(z))
+\end{align*}
+Therefore, we have that $g$ is the required analytic branch of $\log(f(z))$ on $D$. \qed
+
+\newpage
+
+\section*{Ex 6.2.4}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Show that the polynomial $p(z)=z^{5}+3z^{3}+7$ has five distinct zeros inside $|z|=2$. (Use Ex~6.2.3.)
+\end{tcolorbox}
+
+\textit{Pf.} Count the zeros of $p$ inside $|z|=2$ following Ex~6.2.3 (Rouch\'e's theorem). Then we can split $p$ as $f+h$ with, $f(z)=z^{5}$ and $h(z)=3z^{3}+7$. 
+
+\medskip
+Therefore, $p=f+h$ and $p-f=h$. On the closed disk $\overline{D_{2}(0)}$, $f$ and $p$ are entire (i.e. holomorphic on an open neighborhood of $\overline{D_{2}(0)}$). On the circle $|z|=2$ we can say,
+\begin{align*}
+  |p(z)-f(z)| =|h(z)|\le 3|z|^{3}+7 =24+7=31<32=2^{5}=|f(z)|
+\end{align*}
+Therefore, we have Ex~6.2.3's condition of $|f-p|<|f|$ on $|z|=2$. Hence, $f$ and $p$ have the same number of zeros inside the disk $|z|<2$, counted with multiplicity. 
+
+Since $f(z)=z^{5}$ has a single zero of order~$5$ at the origin, $p$ has exactly five zeros in $|z|<2$ when multiplicities are included.
+
+\medskip
+By Lemm~5.4 (factorization of holomorphic functions at a zero of finite order), a zero $a$ of $p$ has order $m\ge 1$ iff $p(a)=p'(a)=\dots=p^{(m-1)}(a)=0$ and $p^{(m)}(a)\ne 0$. Therefore, every zero is simple precisely when $p$ and $p'$ don't share zeros. We can evaulate,
+\[
+  p'(z)=5z^{4}+9z^{2}=z^{2}\bigl(5z^{2}+9\bigr)
+\]
+Hence $p'(z)=0$ iff $z=0$ or $z^{2}=-9/5$. Then we can consider if:
+\begin{itemize}
+  \item \underline{$z=0$}: $p(0)=7\ne 0$, so $0$ is not a zero of $p$.
+  \item \underline{$z^{2}=-9/5$}: $z$ is purely imaginary and nonzero. Using $z^{2}=-9/5$ to reduce $p(z)$, we have,
+  \begin{align*}
+    z^{3}=zz^{2}=-\tfrac{9}{5}z \\ 
+    z^{5}=z(z^{2})^{2}=\tfrac{81}{25}z
+  \end{align*}
+  Therefore,
+  \begin{align*}
+    p(z)=\tfrac{81}{25}z+3\!\left(-\tfrac{9}{5}z\right)+7=\left(\tfrac{81}{25}-\tfrac{135}{25}\right)z+7=-\tfrac{54}{25}z+7
+  \end{align*}
+  Let $p(z)=0$, this gives $z=\tfrac{175}{54}\in\mathbb{R}_{>0}$, contradicting that $z$ is purely imaginary and nonzero. Therefore, we have that no common zero exists.
+\end{itemize}
+Therefore $p$ and $p'$ share no zero in $\mathbb{C}$, and every zero of $p$ has order~$1$. Using the count above, $p$ has exactly five distinct zeros inside $|z|=2$. \qed
+
+\newpage
+
+\section*{Ex 6.2.6}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $D$ is open and $u$ is harmonic on $D$. Show that $u$ must be smooth in the sense that it has continuous partials of all orders in $D$.
+\end{tcolorbox}
+
+\textit{Pf.} Since the smoothness of $u$ is a local, we need to show $u$ has continuous partials of all orders in a neighborhood of each point of $D$.
+
+\medskip
+Take $a\in D$. Since $D$ is open, we take $r>0$ with $D_{r}(a)\subseteq D$. Then the open disk $D_{r}(a)$ is convex, hence simply connected using Lemm~6.12. 
+
+On a simply connected domain, every harmonic function has a harmonic conjugate from Thm~7.13(h) (Simply Connected Domains). This gives a harmonic function $v$ on $D_{r}(a)$ s.t. $f(z):=u(z)+i v(z)\in H(D_{r}(a))$.
+
+\medskip
+Since $f$ is holomorphic on $D_{r}(a)$, this means that the components $u=\mathrm{Re}(f)$ and $v=\mathrm{Im}(f)$ have to be smooth using Ex~4.3.4, i.e. if $f\in H(D)$, then both $u$ and $v$ have continuous partial derivatives of all orders on $D$. 
+
+In particular, $u$ has continuous partials of all orders on the neighborhood $D_{r}(a)$ of $a$.
+
+\medskip
+Since we took any $a\in D$, $u$ has continuous partials of all orders at every point of $D$, as required. \qed
+
+\newpage
+
+\section*{Ex 7.1.3}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $D$ be a domain and $(f_{n})$ a sequence in $H(D)$ that converges pointwise to $f$ on $D$. Show that if $\mathcal{F}=\{f_{n}:n\in\mathbb{N}\}$ is a normal family, then $(f_{n})$ converges to $f$ uniformly on compact subsets of $D$. In particular, $f\in H(D)$.
+\end{tcolorbox}
+
+\textit{Pf.} From Def~7.4, we know that a family $\mathcal{F}\subseteq H(D)$ is normal if every sequence in $\mathcal{F}$ has a subsequence converging uniformly on compact subsets of $D$ to some limit in $H(D)$. The limit of any such convergent subsequence has to be the pointwise limit $f$.
+
+\medskip
+Let $K\subseteq D$ be compact. We can show $f_n\to f$ uniformly on $K$ using proof by contradiction. Assume, for proof by contradiction, that there exist $\varepsilon>0$ and indices $n_{1}<n_{2}<\cdots$ s.t.
+\[
+  \sup_{z\in K}\bigl|f_{n_{k}}(z)-f(z)\bigr|\ge \varepsilon \tag{$\ast$}
+\]
+$\forall k\in\mathbb{N}$. Then the subsequence $(f_{n_{k}})\subseteq\mathcal{F}$ lies in the normal family $\mathcal{F}$. Applying Def~7.4 to this, we have that a further subsequence $(f_{n_{k_{j}}})$ converges uniformly on compact subsets of $D$ to some $g\in H(D)$.
+
+\medskip
+From uniform convergence we have pointwise convergence, so $\forall z\in D$, we have,
+\[
+  g(z)=\lim_{j\to\infty}f_{n_{k_{j}}}(z)=\lim_{n\to\infty}f_{n}(z)=f(z)
+\]
+using $(f_{n})$ converges pointwise to $f$. Hence $g=f$ on $D$. In particular, $f=g\in H(D)$.
+
+\medskip
+But we had that $f_{n_{k_{j}}}\to f$ uniformly on the compact set $K$, so $\sup_{K}|f_{n_{k_{j}}}-f|\to 0$, which contradicts~$(\ast)$. Therefore $f_{n}\to f$ uniformly on every compact $K\subseteq D$, and $f\in H(D)$. \qed
+
+\newpage
+
+\section*{Ex 7.2.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $f:\mathbb{C}\to D$ is a conformal equivalence. Show that $D=\mathbb{C}$ and that $f(z)=az+b$ with $a\neq0$.
+\end{tcolorbox}
+
+\textit{Pf.} Using Rmk~5.51, i.e. a conformal equivalence $f:\mathbb{C}\to D$ is a holomorphic bijection whose inverse is holomorphic. Using Cor~5.49, this is trivial when $f$ is a holomorphic bijection. In particular, $f$ is entire and one-to-one.
+
+\medskip
+We can use the solution of Ex~5.5.6 last week, where we considered the singularity of $g(z)=f(1/z)$ at $0$. We ruled out the removable case using Thm~5.26 (Liouville), essential using Thm~5.21 (Casorati--Weierstrass) and Thm~5.38 (Open Mapping Theorem), and used Lemm~5.2.3 to deduce that this is a pole. We have that entire injective function has the form $f(z)=az+b$, where $a\ne 0,\ b\in\mathbb{C}$.
+
+\medskip
+An affine map of this type is surjective onto $\mathbb{C}$, therefore $D=f(\mathbb{C})=\{az+b:z\in\mathbb{C}\}=\mathbb{C}$. \qed
+
+\newpage
+
+\section*{Ex 7.4.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $D$ is an open connected subset of $\mathbb{C}$.
+\begin{enumerate}
+  \item[(a)] If $p\in D$, show that $D\setminus\{p\}$ is connected. (You can assume that any deleted neighborhood, $D_{\varepsilon}(p)$, is path connected and therefore connected.)
+  \item[(b)] Show that if $D$ is a neighborhood of $\infty$, then $D\cup\{\infty\}$ is connected in $\mathbb{C}^{+}$.
+\end{enumerate}
+\end{tcolorbox}
+
+\textit{Pf.} \begin{enumerate}
+    \item[\textbf{(a)}] Since $D$ is a domain: from Ex~2.1.5, we have that it is path connected. Using Lemm~6.1.2, any convex set is path connected, so we also have that every open disk in $D$ is also path connected. 
+    
+    Using the fact that that path connected sets are connected (from Sec~2.1), we take a basepoint $z_{0}\in D\setminus\{p\}$, and take any $z\in D\setminus\{p\}$. We take a continuous path $\gamma:[0,1]\to D$ with $\gamma(0)=z_{0}$ and $\gamma(1)=z$. Then we can consider if:
+    
+    \begin{itemize}
+        \item \underline{$p\notin\gamma([0,1])$}: $\gamma$ is already a path in $D\setminus\{p\}$ from $z_0$ to $z$.
+        
+        \item \underline{$p \in \gamma([0,1])$}: The preimage,
+        \[
+          E:=\gamma^{-1}(\{p\})=\{t\in[0,1]:\gamma(t)=p\}
+        \]
+        is nonempty. Using continuity of $\gamma$, it also closed in $[0,1]$, hence compact. Let $t_{\text{min}} = \min E$ and $t_{\text{max}} = \max E$.
+
+        Since $\gamma(0)=z_{0}\ne p$ and $\gamma(1)=z\ne p$, we have $0<t_{\min}\le t_{\max}<1$.
+        
+        Take $\delta>0$ s.t. $D_{\delta}(p)\subseteq D$, which is possible since $D$ is open. Using the hint, the punctured disk $D_{\delta}(p)\setminus\{p\}$ is path connected.
+        
+        By continuity of $\gamma$ at $t_{\min}$ and $t_{\max}$, $\exists\varepsilon>0$ s.t. $0<t_{\min}-\varepsilon$, $t_{\max}+\varepsilon<1$, and $|\gamma(t_{\min}-\varepsilon)-p|<\delta$, $|\gamma(t_{\max}+\varepsilon)-p|<\delta$.
+        
+        We can also take $t_{\min}$ and $t_{\max}$ as the extremes of $E$, which gives $\gamma(t_{\min}-\varepsilon)\ne p$ and $\gamma(t_{\max}+\varepsilon)\ne p$, i.e. both endpoints lie in $D_{\delta}(p)\setminus\{p\}$. Now we can take a path $\eta$ from $\gamma(t_{\min}-\varepsilon)$ to $\gamma(t_{\max}+\varepsilon)$ inside $D_{\delta}(p)\setminus\{p\}\subseteq D\setminus\{p\}$. Then we have the concatenated path,
+        \[
+          \gamma\big|_{[0,t_{\min}-\varepsilon]} \;\;\eta\;\;\gamma\big|_{[t_{\max}+\varepsilon,1]}
+        \]
+        is a continuous path from $z_{0}$ to $z$ entirely inside $D\setminus\{p\}$. The two outer pieces avoid $p$ using $t_{\min}$ and $t_{\max}$, and the middle piece $\eta$ avoids $p$ also.
+    \end{itemize}
+    
+    In either case $z_0$ and $z$ are joined by a path in $D\setminus\{p\}$, so $D\setminus\{p\}$ is path connected, hence connected. \qed
+    
+    \item[\textbf{(b)}] We have $\exists R>0$ s.t. $V:=\{z\in\mathbb{C}:|z|>R\}\subseteq D$ using the form of neighborhoods of $\infty$ in Lemm~5.23. Take $W:=V\cup\{\infty\}\subseteq\mathbb{C}^{+}$.
+
+    \medskip
+    We have that the inversion $T:\mathbb{C}^{+}\to\mathbb{C}^{+}$ given by $T(z)=1/z$ for $z\ne 0,\infty$ together with $T(0)=\infty$ and $T(\infty)=0$ is a homeomorphism. Therefore with $T$,
+    \[
+        T(W)=T\bigl(\{\infty\}\cup\{|z|>R\}\bigr)=\{0\}\cup\{|w|<1/R\}=D_{1/R}(0)
+    \]
+    which is an open disk, hence connected (convex). Therefore $W$ is connected.
+
+    \medskip
+    We have $D\cup\{\infty\}=D\cup W$ since, $V\subseteq D$ gives $W=V\cup\{\infty\}\subseteq D\cup\{\infty\}$, so $D\cup W\subseteq D\cup\{\infty\}$. The reverse inclusion is immediate since $\{\infty\}\subseteq W$.
+    
+    Both $D$ and $W$ are connected subsets of $\mathbb{C}^{+}$, and they overlap: any point of $V$, e.g.\ $2R$, lies in both. Therefore $D\cup W$ is connected (union of two connected sets with nonempty intersection). By above, $D\cup\{\infty\}$ is shown to be connected in $\mathbb{C}^{+}$. \qed
+\end{enumerate}
+\end{document}

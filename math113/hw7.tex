@@ -1,0 +1,334 @@
+\documentclass[a4paper]{article}
+\input{head}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\begin{document}
+
+\hrule\medskip
+\begin{minipage}{0.295\textwidth}\raggedright\footnotesize
+Ali Azam
+\end{minipage}%
+\begin{minipage}{0.4\textwidth}\centering
+\large Math 113: Complex Analysis\\
+\normalsize HW \#7
+\end{minipage}%
+\begin{minipage}{0.295\textwidth}\raggedleft
+\today
+\end{minipage}
+\medskip\hrule\bigskip
+
+\section*{Ex 7.4.3}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Suppose that $\gamma$ is a positively oriented Jordan path in a domain $D$ that also contains
+the interior of $\gamma$. Show that if $f \in H(D)$ and is nonzero on $\gamma^*$, then $f$ has
+at most finitely many zeros inside of $\gamma$, and
+\[
+N_f = \frac{1}{2\pi i}\int_\gamma \frac{f'(z)}{f(z)}\,dz
+\]
+is the number of zeros, counted up to multiplicity, of $f$ inside of $\gamma$.
+(Hint: compare with Theorem 5.35 on page 83.)
+\end{tcolorbox}
+
+\textit{Pf.} Let $I$ be the interior of $\gamma$. By Thm~7.22 (Jordan Curve Theorem), $I$ is a bounded
+simply connected domain with boundary $\gamma^*$, so we have $\overline{I} = I \cup \gamma^*$ is compact
+and $\overline{I} \subseteq D$.
+
+\medskip
+Assume, for proof by contradiction, that $f$ has infinitely many zeros in $I$.
+Since $\overline{I}$ is compact, the zeros have a limit point $a \in \overline{I}$. By
+continuity of $f$ on $D$, $f(a) = 0$. The case $a \in \gamma^*$ contradicts the assumption that
+$f$ is nonzero on $\gamma^*$. Therefore, $a \in I \subseteq D$ contradicts Thm~5.6, since $f$
+would have a non-isolated zero in the domain $D$, forcing $f \equiv 0$ on $D$; this
+contradicts $f$ nonzero on $\gamma^*$. Therefore $f$ has only finitely many zeros in $I$.
+
+\medskip
+Let $a_1, \ldots, a_n$ be the distinct zeros of $f$ in $I$
+with multiplicities $m_1, \ldots, m_n$. Let,
+\[
+h(z) := \frac{f(z)}{\prod_{j=1}^n (z - a_j)^{m_j}}
+\]
+for $z \in D \setminus \{a_1, \ldots, a_n\}$. Using Lemm~5.4, near each $a_k$ we have $f(z) = (z - a_k)^{m_k} g_k(z)$ with $g_k \in H(D)$ and
+$g_k(a_k) \neq 0$, therefore,
+\[
+h(z) = \frac{g_k(z)}{\prod_{j \neq k}(z - a_j)^{m_j}}
+\]
+near $a_k$, which is holomorphic with nonzero value at $a_k$. 
+
+Using Prop~5.13, each $a_k$ is a
+removable singularity of $h$, and the extension (called $h$) lies in $H(D)$. Moreover,
+$h$ is nonvanishing on $\overline{I}$: $h \neq 0$ on $\gamma^*$ since $f \neq 0$ there, and
+$h \neq 0$ on $I$ since the zeros of $f$ in $I$ have been removed in $a_j$.
+
+\medskip
+On $D \setminus \{a_1, \ldots, a_n\}$, we have,
+\[
+\frac{f'(z)}{f(z)} = \sum_{j=1}^n \frac{m_j}{z - a_j} + \frac{h'(z)}{h(z)}
+\]
+Let $V := \{z \in D : h(z) \neq 0\}$ be an open set containing $\overline{I}$ since $h$ is
+continuous and nonzero on the compact set $\overline{I}$. Then we have, $h'/h \in H(V)$.
+
+\medskip
+We can show $\mathrm{Ind}_\gamma(a) = 0$ $\forall a \notin V$. Consider:
+
+\begin{itemize}
+    \item \underline{$a \notin D$:} $a$ is in
+    the unbounded component of $\mathbb{C} \setminus \gamma^*$ (since $\overline{I} \subseteq D$),
+    so $\mathrm{Ind}_\gamma(a) = 0$. 
+    
+    \item \underline{$a \in D \setminus V$:} $h(a) = 0$, so $a \notin
+    \overline{I}$ and again $a$ is in the unbounded component, then again $\mathrm{Ind}_\gamma(a) = 0$.
+\end{itemize}
+
+Hence using Thm~6.6 (Cauchy's Theorem) on $h'/h \in H(V)$ and the cycle $\gamma$ in $V$ gives,
+\[
+\int_\gamma \frac{h'(z)}{h(z)}\,dz = 0
+\]
+Using Def~8.12 (since $\gamma$ is positively oriented), $\forall j: \mathrm{Ind}_\gamma(a_j) = 1$. Therefore,
+\[
+\int_\gamma \frac{f'(z)}{f(z)}\,dz
+= \sum_{j=1}^n m_j \int_\gamma \frac{dz}{z - a_j} + 0
+= 2\pi i \sum_{j=1}^n m_j
+\]
+Hence, $\displaystyle N_f = \frac{1}{2\pi i}\int_\gamma f'/f\,dz = \sum_{j=1}^n m_j$ is the number of zeros
+of $f$ inside $\gamma$ counted with multiplicity, as required. \qed
+
+% This is the Jordan path version of Thm 5.35 on page 83, where convexity of $D$ was used to
+% ensure $\int_\gamma h'/h\,dz = 0$; here we use Thm 6.6 instead.
+
+\newpage
+\section*{Ex 7.4.4}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Prove Rouch\'e's Theorem: suppose that $f$ and $g$ are analytic on and inside a positively
+oriented Jordan path $\gamma$ and are such that $|f(z) - g(z)| < |f(z)|$ for all
+$z \in \gamma^*$. Show that $f$ and $g$ have the same number of zeros inside of $\gamma$
+counted up to multiplicity. (Hint: compare with Ex 6.2.3.)
+\end{tcolorbox}
+
+\textit{Pf.} Let $I$ be the interior of $\gamma$. We should have both $f$ and $g$ are holomorphic on
+some open set $D$ containing $\overline{I} = I \cup \gamma^*$.
+
+\medskip
+For $z \in \gamma^*$, the inequality
+$|f(z) - g(z)| < |f(z)|$ forces $|f(z)| > 0$. Also, by the reverse of the triangle inequality, can say,
+\[
+|g(z)| \geq |f(z)| - |f(z) - g(z)| > 0
+\]
+Thus $f \neq 0$ and $g \neq 0$ on $\gamma^*$. Using Ex~7.4.3, we have the integrals,
+\begin{align*}
+N_f &= \frac{1}{2\pi i}\int_\gamma \frac{f'(z)}{f(z)}\,dz \\
+N_g &= \frac{1}{2\pi i}\int_\gamma \frac{g'(z)}{g(z)}\,dz
+\end{align*}
+which count the zeros inside $\gamma$ (with multiplicity) of $f$ and $g$, respectively.
+
+\medskip
+Using the hint, we define $H : [0,1] \times [0,1] \to \mathbb{C}$ as,
+\[
+H(s, t) = t\, f(\gamma(s)) + (1 - t)\, g(\gamma(s))
+\]
+which is continuous. Since $\gamma(0) = \gamma(1)$, we have: $H(s, 0) = g(\gamma(s))$, $H(s, 1) = f(\gamma(s))$, and
+$H(0, t) = H(1, t)$. 
+
+We can confirm that $H(s, t)$ is nonzero
+$\forall(s, t) \in [0,1]^2$. We take $H(s, t) = f(\gamma(s)) - (1-t)(f(\gamma(s)) - g(\gamma(s)))$ and usign $0 \leq 1 - t \leq 1$, we have,
+\[
+|H(s, t)| \geq |f(\gamma(s))| - (1-t)|f(\gamma(s)) - g(\gamma(s))|
+\geq |f(\gamma(s))| - |f(\gamma(s)) - g(\gamma(s))| > 0.
+\]
+Therefore, we have that $H$ is a homotopy of closed paths in the domain $\mathbb{C} \setminus \{0\}$ between
+$g \circ \gamma$ (at $t = 0$) and $f \circ \gamma$ (at $t = 1$).
+
+\medskip
+Using Thm~6.14, since $0 \notin \mathbb{C} \setminus \{0\}$, we have, $\displaystyle \mathrm{Ind}_{g \circ \gamma}(0) = \mathrm{Ind}_{f \circ \gamma}(0)$.
+
+\medskip
+Using Eqn~(5.15) (change of variables identity) from $(f \circ \gamma)'(s) = f'(\gamma(s))\gamma'(s)$, we have,
+\[
+\mathrm{Ind}_{f \circ \gamma}(0)
+= \frac{1}{2\pi i}\int_{f \circ \gamma} \frac{dw}{w}
+= \frac{1}{2\pi i}\int_\gamma \frac{f'(z)}{f(z)}\,dz
+= N_f
+\]
+and symmetrically $\mathrm{Ind}_{g \circ \gamma}(0) = N_g$.
+
+\medskip
+Hence shown that $N_f = N_g$: $f$ and $g$ have the same number of zeros inside $\gamma$ counted
+with multiplicity. \qed
+
+% \medskip
+% This is the Jordan path version of Ex 6.2.3, where the same homotopy
+% argument was used with $\gamma$ a circle.
+
+\newpage
+\section*{Ex 7.4.5}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Assume the result from Chapter 8 that every Jordan path or its opposite is positively oriented
+(Theorem 8.1). Suppose that $f$ is analytic on and inside a Jordan path $\gamma$. Suppose that
+$f$ is one-to-one on $\gamma$ so that $f(\gamma)$ is also a Jordan path. Then $f$ maps the
+interior of $\gamma$ bijectively onto the interior of $f(\gamma)$. In particular, $f$ is a
+conformal equivalence of the two interiors and $f(\gamma)$ is positively oriented whenever
+$\gamma$ is.
+\end{tcolorbox}
+
+\textit{Pf.} Let $I$ be the interior of $\gamma$. We have $\overline{I} = I \cup \gamma^*$. Let $D$ be an open
+set with $\overline{I} \subseteq D$ on which $f$ is holomorphic. Since $\gamma$ is piecewise
+smooth, closed, and simple (Jordan), and $f$ is holomorphic and injective on $\gamma^*$, the
+composition $\tilde{\gamma} := f \circ \gamma$ is piecewise smooth, closed, and simple. So
+$\tilde{\gamma}$ is a Jordan path. 
+
+
+By Thm~7.22, $\mathbb{C} \setminus \tilde{\gamma}^*$ is made up of two domains: a bounded interior $J$ and an unbounded exterior. Both have boundary,
+$\tilde{\gamma}^* = f(\gamma^*)$.
+
+\medskip
+Take $w_0 \notin \tilde{\gamma}^*$. Then we have $f(z) - w_0$ lies in $H(D)$, and it is nonzero on $\gamma^*$ (otherwise $w_0 \in f(\gamma^*)$). Using Ex~7.4.3's solution from above, we have the number of zeroes of $f-w_0$ in $I$ (with multiplicity) as,
+\[
+N(w_0) := \frac{1}{2\pi i}\int_\gamma \frac{f'(z)}{f(z) - w_0}\,dz
+\]
+Then using the the same change of variables as in Ex~7.4.4's solution above, we have,
+\[
+N(w_0) = \frac{1}{2\pi i}\int_\gamma \frac{f'(z)}{f(z) - w_0}\,dz
+= \frac{1}{2\pi i}\int_{\tilde{\gamma}} \frac{dw}{w - w_0}
+= \mathrm{Ind}_{\tilde{\gamma}}(w_0)
+\]
+Therefore, we have $N(w_0) = \mathrm{Ind}_{\tilde{\gamma}}(w_0)$. Using Ex~6.1.1, we know that this is constant on each connected
+component of $\mathbb{C} \setminus \tilde{\gamma}^*$.
+
+\medskip
+On the unbounded component,
+$\mathrm{Ind}_{\tilde{\gamma}} = 0$. Using Thm~8.1, we have on the bounded component $J$, the index
+equals $\pm 1$, and the sign is $+1$ iff $\tilde{\gamma}$ is positively oriented. Since
+$N(w_0) \geq 0$ (it is a count of zeros), we must have $\mathrm{Ind}_{\tilde{\gamma}}(w_0) = +1$ for
+$w_0 \in J$. Therefore $\tilde{\gamma} = f(\gamma)$ is positively oriented.
+
+\medskip
+$\forall w_0 \in J$, we have $N(w_0) = 1$. Therefore,  $f - w_0$ has
+exactly one zero in $I$, counted with multiplicity. In particular, this zero is simple, hence
+$f'(z)$ is nonzero at that zero. Therefore, $\forall w_0 \in J$ has exactly one preimage in $I$, giving an
+injection $J \to I$ inverse to $f|_I$ restricted to $f^{-1}(J)$.
+
+\medskip
+$\forall w_0$ in the unbounded component of $\mathbb{C} \setminus \tilde{\gamma}^*$, we have
+$N(w_0) = 0$, so $w_0 \notin f(I)$. Then we can say,
+\[
+f(I) \subseteq J \cup \tilde{\gamma}^* = J \cup f(\gamma^*)
+\]
+Assume, for proof by contradiction, that there is $z_0 \in I$ with $f(z_0) \in f(\gamma^*)$. Using Thm~5.38 (Open Mapping Theorem) on the nonconstant $f \in H(D)$, the image $f(I)$ is
+open and contains $f(z_0)$. Since $f(z_0) \in \tilde{\gamma}^* = \partial J$, any open
+neighborhood of $f(z_0)$ meets the unbounded component of $\mathbb{C} \setminus
+\tilde{\gamma}^*$. This contradicts $f(I) \subseteq J \cup \tilde{\gamma}^*$ (since $J$ is the bounded interior). Therefore,
+$f(I) \subseteq J$. 
+
+
+Combining, $f$ maps $I$ onto $J$ bijectively.
+
+\medskip
+From the above, we have $f'(z)$ on $I$ above. We also have, $f : I
+\to J$ is a holomorphic injection. Using Cor 5.49, $f'$ is nonzero on $I$ and the inverse
+$f^{-1} : J \to I$ is holomorphic. Then using Rmk~5.51, $f$ is shown to be a conformal equivalence of $I$ with
+$J$. \qed
+
+\newpage
+\section*{Ex 10.1.2}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Show that $C(K; E)$ is a subalgebra of $C(K)$.
+\end{tcolorbox}
+
+\textit{Pf.} We show $C(K; E)$ is closed under addition, scalar
+multiplication, and pointwise multiplication.
+
+\medskip
+If $r_1, r_2 \in R(E)$, then $r_1 + r_2$ and $r_1 r_2$ are
+rational functions whose finite poles lie among the union of the finite poles of $r_1$ and
+$r_2$. Therefore, they lie in $E$. If either $r_1$ or $r_2$ has a pole at $\infty$, then we have $\infty \in E$, and the sum and product can have at most a pole at $\infty$, which also lies in $E$. Therefore, we have that:
+$r_1 + r_2, r_1 r_2 \in R(E)$. Similarly $\lambda r_1 \in R(E)$ for $\lambda \in \mathbb{C}$.
+
+\medskip
+Let $f, g \in C(K; E)$ and $\lambda \in
+\mathbb{C}$. We take the sequences $(r_n), (s_n)$ in $R(E)$ with $r_n \to f$ and $s_n \to g$
+uniformly on $K$, i.e., $\|r_n - f\|_\infty \to 0$ and $\|s_n - g\|_\infty \to 0$.
+
+\medskip
+For addition and scalar multiplication, we have from the standard triangle estimates,
+\begin{align*}
+\|(r_n + s_n) - (f + g)\|_\infty &\leq \|r_n - f\|_\infty + \|s_n - g\|_\infty \to 0 \\
+\|\lambda r_n - \lambda f\|_\infty &= |\lambda|\,\|r_n - f\|_\infty \to 0
+\end{align*}
+which gives $r_n + s_n \to f + g$ and $\lambda r_n \to \lambda f$ uniformly. Since $r_n + s_n,
+\lambda r_n \in R(E)$, both $f + g$ and $\lambda f$ lie in $C(K; E)$.
+
+\medskip
+For multiplication, $C(K)$ is a Banach algebra under the supremum norm, so $\|uv\|_\infty
+\leq \|u\|_\infty\,\|v\|_\infty$. Since $(r_n)$ converges, it is bounded: there is $M > 0$
+with $\|r_n\|_\infty \leq M$ for all $n$. Then,
+\[
+\|r_n s_n - f g\|_\infty
+\leq \|r_n (s_n - g)\|_\infty + \|(r_n - f) g\|_\infty
+\leq M\,\|s_n - g\|_\infty + \|g\|_\infty\,\|r_n - f\|_\infty
+\to 0
+\]
+Since we have $r_n s_n \in R(E)$, the uniform limit $fg$ must lie in $C(K; E)$.
+
+\medskip
+Therefore, $C(K; E)$ is closed under addition, scalar multiplication, and pointwise
+multiplication. Hence it is a subalgebra of $C(K)$. \qed
+
+\newpage
+\section*{Ex 10.1.3}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black, boxrule=0.5pt, arc=2mm]
+Let $D = D_1(0)$ and $T = \{z \in \mathbb{C} : |z| = 1\}$ so that $\overline{D} = D \cup T$.
+Let $A(T)$ be the set of $f \in C(T)$ such that there is a $g \in C(\overline{D})$ with
+$g|_T = f$ and $g|_D \in H(D)$. (That is, $A(T)$ is the set of continuous functions on $T$
+that extend to a holomorphic function on the interior of $T$.) Show that $A(T)$ is a Banach
+subalgebra of $C(T)$. The algebra $A(T)$ is often called the disk algebra. (I suggest using
+Corollary 5.42 of the Maximum Modulus Theorem.)
+\end{tcolorbox}
+
+\textit{Pf.} A closed
+subspace of the Banach space $C(T)$ is complete in the inherited norm, hence $A(T)$ is a
+Banach subalgebra.
+
+\medskip
+We can show that $A(T)$ is a subalgebra. Let $f_1, f_2 \in A(T)$ with extensions $g_1, g_2 \in
+C(\overline{D})$ that are holomorphic on $D$. Let $\lambda \in \mathbb{C}$. Then we have:
+$g_1 + g_2$, $\lambda g_1$, and $g_1 g_2$ are continuous on the compact set $\overline{D}$
+(sum, scalar multiple, and product of continuous functions). We also have that they are holomorphic on $D$ using
+Prop~2.2 (since $H(D)$ is also closed under addition, scalar multiplication, and pointwise
+multiplication). 
+
+
+On $T$, we have that they restrict to $f_1 + f_2$, $\lambda f_1$, and $f_1 f_2$, respectively, so all three of them lie in $A(T)$.
+
+\medskip
+We can also show that $A(T)$ is closed. Let $(f_n)$ be a sequence in $A(T)$ converging uniformly on $T$ to
+$f \in C(T)$, and let $g_n \in C(\overline{D})$ be the corresponding extensions with $g_n|_D
+\in H(D)$. The bounded domain $D$, the continuous function $g_n - g_m$ on $\overline{D}$, and
+the holomorphic restriction $(g_n - g_m)|_D$ all fulfill the requirements of Cor~5.42 (Maximum Modulus
+Theorem on a bounded domain). Therefore, we have (the beautiful),
+\[
+\max_{z \in \overline{D}}|g_n(z) - g_m(z)|
+= \max_{z \in T}|g_n(z) - g_m(z)|
+= \|f_n - f_m\|_\infty
+\to 0
+\]
+as $n, m \to \infty$. Therefore, $(g_n)$ is Cauchy in $C(\overline{D})$ under the supremum norm.
+
+
+Since $C(\overline{D})$ is complete (uniform limits of continuous functions on a compact set
+are also continuous), $\exists g \in C(\overline{D})$ with $g_n \to g$ uniformly on $\overline{D}$.
+
+\medskip
+By the estriction, $g|_T = \lim g_n|_T = \lim f_n = f$ uniformly on $T$. The uniform convergence
+$g_n \to g$ on $\overline{D}$ gives us uniform convergence on every compact subset of $D$. Using Thm~5.32, the limit $g|_D \in H(D)$.
+
+\medskip
+Therefore, $g \in C(\overline{D})$, $g|_T = f$, and $g|_D \in H(D)$, so $f \in A(T)$. Hence $A(T)$ is closed in $C(T)$.
+
+\medskip
+Therefore, we have that $A(T)$ is a closed subalgebra of the Banach algebra $C(T)$, and is hence a Banach subalgebra. \qed
+
+\end{document}
